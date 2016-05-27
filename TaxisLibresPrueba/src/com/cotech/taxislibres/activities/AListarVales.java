@@ -273,6 +273,12 @@ public class AListarVales extends Activity {
 		Log.i(TAG, module + " ENTRO POR PresionaSeleccionar");
 		SeleccionoVale();
 	}
+
+public void CambioRama1(View v){
+		Log.i(TAG, module + " ENTRO POR PresionaSeleccionar");
+		SeleccionoVale();
+	}
+
 	
 	//************************************************************
 	public void SeleccionoVale(){
