@@ -90,6 +90,17 @@ public class AVerHistorico extends Activity {
 		finish();
 
 	}
+//****************************************************************************************
+	public void MocharDireccion(View v){
+		String s = "Por prueba de repositorio";
+
+		Intent i = getIntent();
+		i.putExtra("nohacernada", s);
+		setResult(RESULT_OK, i);
+		finish();
+
+	}
+
 
 	//****************************************************************************************
 	public void BorrarHistorico(View v){
