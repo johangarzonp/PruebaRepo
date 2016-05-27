@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondosalirapp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textoconfirmarabordo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONFIRMAR ABORDO DEL TAXI" 
+        android:layout_marginTop="15dp"
+        android:textSize="16dp"
+        android:layout_gravity="center"/>
+    
+    <TextView
+        android:id="@+id/textopreguntaabrdo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Esta seguro que abordo el taxi?" 
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        >
+        
+        <ImageButton
+            android:id="@+id/aceptarabordo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="NoReconfirmar"
+            android:src="@drawable/botonsiestoy" />
+        
+        <ImageButton
+            android:id="@+id/noabordotaxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="ReconfirmarServicio"
+            android:src="@drawable/botonnoestoy" />
+    </LinearLayout>
+
+</LinearLayout>

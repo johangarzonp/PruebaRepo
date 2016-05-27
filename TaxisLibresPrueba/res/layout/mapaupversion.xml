@@ -1,0 +1,834 @@
+
+<!-- Contenido principal -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- En este Fragment se coloca el Mapa -->
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        class="com.google.android.gms.maps.SupportMapFragment" />
+
+    <!-- Icono de Usuario para Solicitar el Servicio -->
+
+    <ImageView
+        android:id="@+id/yo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/iconousuario" />
+
+    <!-- Botones adicionales en el Mapa -->
+
+    <ImageButton
+        android:id="@+id/cambiomapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="55dp"
+        android:background="@null"
+        android:onClick="cambioMapa"
+        android:src="@drawable/iconomapa" />
+
+    <ImageButton
+        android:id="@+id/changevoz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:onClick="cambioVoz" />
+
+    <ImageButton
+        android:id="@+id/ubicarusuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:onClick="UbicarUsuario"
+        android:src="@drawable/iconoubicacion" />
+
+    <!-- Barra para Solicitud de Taxi -->
+
+    <LinearLayout
+        android:id="@+id/botonessolicitud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/fondobajomapa"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ImageButton
+            android:id="@+id/botonpago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:onClick="MenuFormasdePago"
+            android:paddingLeft="0dp"
+            android:src="@drawable/formasdepago" />
+
+        <ImageButton
+            android:id="@+id/solicitar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="Solicita"
+            android:src="@drawable/nvobotonsolicitar" />
+
+        <ImageButton
+            android:id="@+id/botonfavoritos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:onClick="OpcionesServicio"
+            android:paddingRight="0dp"
+            android:src="@drawable/botonmasopciones" />
+    </LinearLayout>
+
+    <!-- Barra para Cancelar el Servicio -->
+
+    <LinearLayout
+        android:id="@+id/botonesenelservicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/fondobajomapa"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:id="@+id/fotomapataxista"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="invisible"
+             />
+
+        <LinearLayout
+            android:id="@+id/infotaxistamapa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:visibility="invisible" >
+            
+            <TextView
+                android:id="@+id/nombreconductormapa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:maxWidth="130dp"
+                android:maxLines="3"
+                android:text="PEPITO PEREZ"
+                
+                android:textSize="12dp" />
+            
+            <TextView
+                android:id="@+id/placataximapa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:maxWidth="130dp"
+                android:text="Placa: ABC123"
+                
+                android:textSize="12dp" />
+            
+            <TextView
+                android:id="@+id/distanciamapa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:maxWidth="130dp"
+                android:text="Dis: 0 mts"
+                
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/botonllamarusuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:onClick="LlamarUsuario"
+            android:src="@drawable/botonllamartaxista" />
+        
+
+        <ImageButton
+            android:id="@+id/botonmensajealtaxista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:onClick="MensajeTaxista"
+            android:src="@drawable/botonmensajeataxista" />
+        
+        <ImageButton
+            android:id="@+id/botoncancelarservicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:onClick="Cancela"
+            android:src="@drawable/botoncancelarservicio" />
+    </LinearLayout>
+
+    <!-- Barra para Calificar el Servicio -->
+
+    <LinearLayout
+        android:id="@+id/botonescalificarservicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/fondobajomapa"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ImageButton
+            android:id="@+id/botoncalificarservicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:onClick="PresionoCalificar"
+            android:src="@drawable/nuevobotoncalificar" />
+    </LinearLayout>
+
+    <!-- Ingreso de Dirección,Barrio y Adicionales -->
+
+    <LinearLayout
+        android:id="@+id/avisomarket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/yo"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/direccionusuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/barradireccion"
+            android:onClick="MenuAdicionales"
+            android:inputType="textCapWords"
+            android:maxLength="100"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Buscando..."
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textStyle="bold" 
+            />
+
+<!--    
+        <ImageButton
+            android:id="@+id/botoncompldireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:onClick="MenuAdicionales"
+            android:paddingLeft="10dp"
+            android:src="@drawable/iconoadicionarfavorito" />
+            -->
+    </LinearLayout>
+
+    <!-- Barra para escoger metodos de Pago: E,V o TC -->
+
+    <LinearLayout
+        android:id="@+id/barrametodopago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botonessolicitud"
+        android:background="@drawable/fondobarrapago"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ImageButton
+            android:id="@+id/botonpagoefectivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="14dp"
+            android:background="@null"
+            android:onClick="OprimioEfectivo"
+            android:src="@drawable/botonefectivooff" />
+
+        <ImageButton
+            android:id="@+id/botonpagovale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:background="@null"
+            android:onClick="OprimioVale"
+            android:src="@drawable/botonvaleoff" />
+
+        <ImageButton
+            android:id="@+id/botonpagotarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:background="@null"
+            android:onClick="OprimioTarjeta"
+            android:src="@drawable/botontarjetaoff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/barraflecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barrametodopago"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/fondoflechacursor"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+    </LinearLayout>
+
+    <!-- Barra para escoger Tipo de Vale: Digital, Fisico,Cupo Digital -->
+
+<LinearLayout
+        android:id="@+id/barratipovale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botonessolicitud"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/fondoescogervale"
+        android:gravity="left"
+        android:orientation="horizontal" 
+        android:visibility="invisible" >
+
+        <!-- Primera Parte: Vale Fisico -->
+
+        
+            <RadioButton
+                android:id="@+id/tipovalefisico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/selectorvaleoff"
+                android:button="@null"
+                android:onClick="BotonValeFisico"
+                android:textSize="1dp" />
+
+            <ImageButton
+                android:id="@+id/avisovalefisico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:onClick="BotonValeFisico"
+                android:src="@drawable/avisofisico"
+                android:textSize="1dp" />
+        
+
+        <!-- Segunda Parte: Vale Digital -->
+
+        
+            <RadioButton
+                android:id="@+id/tipovaledigital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+				android:layout_marginLeft="15dp"
+                android:background="@drawable/selectorvaleoff"
+                android:button="@null"
+                android:onClick="BotonValeDigital"
+                android:textSize="1dp" />
+
+            <ImageButton
+                android:id="@+id/avisovaledigital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:onClick="BotonValeDigital"
+                android:src="@drawable/avisodigital"
+                android:textSize="1dp" />
+        
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/flechavales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barratipovale"
+        android:layout_marginLeft="22dp"
+        android:background="@drawable/cursorflechavale"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+    </LinearLayout>
+
+    <!-- Ventana para ingresar Numero de Vale -->
+    <LinearLayout
+        android:id="@+id/barraingresarvale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botonessolicitud"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/fondoingresarvale"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/avisoingresarvale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textoingresevale"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/numerodevaleingresado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/campoingesarvale"
+            android:inputType="number"
+            android:maxLength="10"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textStyle="bold" >
+
+            <requestFocus />
+        </EditText>
+
+        <RelativeLayout
+            android:id="@+id/relativelayoutaux"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" 
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/botonesaceptarcancelarvale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="invisible" >
+
+                <ImageButton
+                    android:id="@+id/aceptarvale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:onClick="AceptoVale"
+                    android:src="@drawable/botonaceptarcodigo" />
+
+                <ImageButton
+                    android:id="@+id/cancelarvale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:onClick="NoAceptoVale"
+                    android:src="@drawable/botoncancelarcodigo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/botoneslistarvale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="invisible" >
+
+                <ImageButton
+                    android:id="@+id/aceptarvalelista"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:onClick="AceptoVale"
+                    android:src="@drawable/botonaceptarcodigo" />
+
+                <ImageButton
+                    android:id="@+id/cancelarvalelista"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:onClick="NoAceptoVale"
+                    android:src="@drawable/botoncancelarcodigo" />
+
+                <ImageButton
+                    android:id="@+id/listavalelista"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:onClick="ListarVales"
+                    android:src="@drawable/botonlistadevales" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <!-- Ventana para Reconfirmar Numero de Vale -->
+
+    <LinearLayout
+        android:id="@+id/barraconfirmarvale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botonessolicitud"
+		android:layout_centerHorizontal="true"
+        android:background="@drawable/fondoconfirmarvale"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/avisoconfirmarvale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textoconfirmarvale"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/avisovalequeingreso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="¿El vale que usted ingresó es"
+            android:textColor="#000000"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/elnumerodevale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="el número 123456?"
+            android:textColor="#000000"
+            android:textSize="14dp" />
+
+        <LinearLayout
+            android:id="@+id/botonesconfirmarvale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/confirmavale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:onClick="ConfirmoVale"
+                android:src="@drawable/botonaceptarcodigo" />
+
+            <ImageButton
+                android:id="@+id/noconfirmavale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:onClick="NoConfirmoVale"
+                android:src="@drawable/botoncancelarcodigo" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Ventana para Ingresar Codigo de Usuario -->
+
+    <LinearLayout
+        android:id="@+id/barraingresarcodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botonessolicitud"
+       	android:layout_centerHorizontal="true"
+        android:background="@drawable/fondoingresarvale"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/avisoingresarcodigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/avisonumerousuario"
+            android:textSize="1dp" />
+
+        <EditText
+            android:id="@+id/codigoingresado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/campoingesarvale"
+            android:inputType="number"
+            android:maxLength="10"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textStyle="bold" >
+
+            <requestFocus />
+        </EditText>
+
+        <LinearLayout
+            android:id="@+id/botonesaceptarcancelarcodigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/aceptarcodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:onClick="AceptoCodigo"
+                android:src="@drawable/botonaceptarcodigo" />
+
+            <ImageButton
+                android:id="@+id/cancelarcodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:onClick="NoAceptoCodigo"
+                android:src="@drawable/botoncancelarcodigo" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Menu Superior Izquierdo -->
+
+    <RelativeLayout
+        android:id="@+id/menulateral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <LinearLayout
+            android:id="@+id/barralateralmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/fondomenulateral"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/botonactualizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:onClick="PresionoImagenActualizar"
+                android:src="@drawable/avisoactualizarblanco" />
+
+            <ImageButton
+                android:id="@+id/botoncompartir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:background="@null"
+                android:onClick="PresionoImagenCompartir"
+                android:src="@drawable/avisocompappblanco" />
+
+            <ImageButton
+                android:id="@+id/botontarjetacredito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:background="@null"
+                android:onClick="PresionoImagenTarjeta"
+                android:src="@drawable/avisotarjetablanco" />
+
+            <ImageButton
+                android:id="@+id/botonmensajecentral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:background="@null"
+                android:onClick="PresionoImagenMensajeCentral"
+                android:src="@drawable/avisomsgcentralblanco" />
+
+            <ImageButton
+                android:id="@+id/botonhistorico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:background="@null"
+                android:onClick="PresionoImagenHistorico"
+                android:src="@drawable/avisohisblanco" />
+
+            <ImageButton
+                android:id="@+id/botonborrarhistorico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:background="@null"
+                android:onClick="PresionoImagenMisDirecciones"
+                android:src="@drawable/avisodireccionesblanco" />
+            
+            <ImageButton
+                android:id="@+id/botonpromos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:background="@null"
+                android:onClick="PresionoImagenPromos"
+                android:src="@drawable/avisopromosblanco" />
+            
+            <ImageButton
+                android:id="@+id/botonescaner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="18dp"
+                android:background="@null"
+                android:onClick="PresionoImagenEscaner"
+                android:src="@drawable/avisoscannerblanco" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botonesseleccionmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barralateralmenu"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/imagenactualizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:onClick="PresionoImagenActualizar"
+                android:src="@drawable/btnbarraactualizardatos" />
+
+            <ImageButton
+                android:id="@+id/imagencompartir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:onClick="PresionoImagenCompartir"
+                android:src="@drawable/btncompartirapp" />
+
+            <ImageButton
+                android:id="@+id/imagentarjetacredito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:onClick="PresionoImagenTarjeta"
+                android:src="@drawable/btnmenutarjeta" />
+
+            <ImageButton
+                android:id="@+id/imagenmensajecentral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:onClick="PresionoImagenMensajeCentral"
+                android:src="@drawable/btnmenumensajecentral" />
+
+            <ImageButton
+                android:id="@+id/imagenhistorico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:background="@null"
+                android:onClick="PresionoImagenHistorico"
+                android:src="@drawable/btnmenuhistorico" />
+
+            <ImageButton
+                android:id="@+id/imagenborrarhistorico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:background="@null"
+                android:onClick="PresionoImagenMisDirecciones"
+                android:src="@drawable/btnmenumisdirecciones" />
+            
+            <ImageButton
+                android:id="@+id/imagenpromos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:background="@null"
+                android:onClick="PresionoImagenPromos"
+                android:src="@drawable/btnmenupromos" />
+            
+            <ImageButton
+                android:id="@+id/imagenescaner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:background="@null"
+                android:onClick="PresionoImagenEscaner"
+                android:src="@drawable/btnscanner" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Para mas iconos o barras que se necesiten... -->
+
+</RelativeLayout>

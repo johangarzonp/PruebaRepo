@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.cotech.taxislibres.activities.AMapaUpVersion" >
+
+<!-- Para Menu Adicional -->
+    <item android:id="@+id/action_menu"
+          android:icon="@drawable/menusuperiorizquierdo"
+          android:title="@string/action_menu"
+           />
+    <!-- Para Ayuda -->
+    <item android:id="@+id/action_help"
+        android:icon="@drawable/menusuperiorderecho"
+          android:title="@string/action_help"
+           />    
+
+</menu>

@@ -1,0 +1,164 @@
+package com.cotech.taxislibres.activities;
+
+
+
+import com.cotech.taxislibres.R;
+import com.cotech.taxislibres.TaxisLi;
+import com.cotech.taxislibres.services.ServiceTCP;
+import com.cotech.taxislibres.services.ServiceTTS;
+import com.cotech.taxislibres.services.ServiceTimer;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+public class ASplash extends Activity {
+ 
+    // Duraci�n en milisegundos que se mostrar� el splash
+    private final int DURACION_SPLASH = 4000; // 3 segundos
+    private static final String TAG = "TaxisLibres";
+	private static final String module = "SPLASH";	
+	private boolean initialized = false;
+	private TaxisLi appState;
+	
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);                
+                        
+        Context context = getApplicationContext();
+	    appState = ((TaxisLi) context);
+        // Tenemos una plantilla llamada splash.xml donde mostraremos la informaci�n que queramos (logotipo, etc.)
+        setContentView(R.layout.splash);
+                        
+ 
+        
+        if (!verificaConexion(this)) {
+    	   // Toast.makeText(getBaseContext(),"Comprueba tu conexi�n a Internet. Saliendo ... ", Toast.LENGTH_SHORT).show();
+    	    
+    	    
+    	    LayoutInflater inflater = getLayoutInflater();
+    		 
+			View layout = inflater.inflate(R.layout.custom_toast,
+			  (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+
+			// set a dummy image
+			ImageView image = (ImageView) layout.findViewById(R.id.image);
+			image.setImageResource(R.drawable.sin_internet);
+
+			// set a message
+			TextView text = (TextView) layout.findViewById(R.id.text);
+			text.setTextColor(Color.BLACK);		
+			text.setText("Comprueba tu conexión a Internet. "  + "   CERRANDO APLICACION...  ");
+
+			// Toast...
+			
+			for(int i=0; i < 2 ;i++){
+				Toast toast = new Toast(getApplicationContext());					
+				toast.setDuration(Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.setView(layout);
+				toast.show();
+			}
+    	    
+    	    
+    	    finish();
+    	}else{	               
+	        new Handler().postDelayed(new Runnable(){
+	            public void run(){
+			// Cuando pasen los 3 segundos, pasamos a la actividad principal de la aplicaci�n
+	        	     
+	            	
+	            Intent intentTcp = new Intent(ASplash.this, ServiceTCP.class);
+	         	startService(intentTcp);	
+	         	
+	         	Intent intentTts = new Intent(ASplash.this, ServiceTTS.class);
+		        startService(intentTts);	
+		        
+		        Intent intentTimer = new Intent(ASplash.this, ServiceTimer.class);
+		        startService(intentTimer);	
+	            	
+	            	
+	            Intent intent = new Intent(ASplash.this, AEntrada.class);
+	        	startActivity(intent);
+	        	finish();
+	            };
+	        }, DURACION_SPLASH);
+    	}
+        
+        
+        
+        
+        /******************PARA EL SDK*************************/
+//     // Instantiate MAT object with your advertiser ID and key
+//        MobileAppTracker mobileAppTracker = new MobileAppTracker(this, "12116",
+//        "6b69c1b7197136782c62cf508d25c98b");
+//        // Enable these options for debugging only
+//        
+//        // Track install on app open
+//        mobileAppTracker.trackInstall();
+//        
+//        
+        
+        
+        
+        
+    }
+    
+    
+    public static boolean verificaConexion(Context ctx) {
+        
+    	Log.i("taxislibres","********************* " + "Comprueba Conexion a Internet");
+    	boolean bConectado = false;
+        ConnectivityManager connec = (ConnectivityManager) ctx
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        // No s�lo wifi, tambi�n GPRS
+        NetworkInfo[] redes = connec.getAllNetworkInfo();
+        // este bucle deber�a no ser tan �apa
+        for (int i = 0; i < 2; i++) {
+            // �Tenemos conexi�n? ponemos a true
+            if (redes[i].getState() == NetworkInfo.State.CONNECTED) {
+                bConectado = true;
+            }
+        }
+        
+        Log.i("taxislibres","Conexion es: " + bConectado);
+        return bConectado;
+    }
+    
+    
+    
+//    @Override
+//    protected void onDestroy() {
+//    	    super.onDestroy();
+//    	    unbindDrawables(findViewById(R.id.splash));
+//    	    System.gc();
+//    }
+//    
+//    private void unbindDrawables(View view) {
+//        if (view.getBackground() != null) {
+//        view.getBackground().setCallback(null);
+//        }
+//        if (view instanceof ViewGroup) {
+//            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+//            unbindDrawables(((ViewGroup) view).getChildAt(i));
+//            }
+//        ((ViewGroup) view).removeAllViews();
+//        }
+//    }
+}

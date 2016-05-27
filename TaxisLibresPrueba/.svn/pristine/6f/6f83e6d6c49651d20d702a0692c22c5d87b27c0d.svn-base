@@ -1,0 +1,671 @@
+package com.cotech.taxislibres.activities;
+
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.os.Handler;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.cotech.taxislibres.C;
+import com.cotech.taxislibres.EstadosUnidad;
+import com.cotech.taxislibres.R;
+import com.cotech.taxislibres.TaxisLi;
+import com.cotech.taxislibres.services.ServiceTCP;
+import com.cotech.taxislibres.services.ServiceTTS;
+import com.cotech.taxislibres.services.ServiceTimer;
+
+
+
+public class AFormulario extends Activity {
+	
+	private static final String TAG = "RLPlus";
+	protected String module = "Formulario";	
+	private TaxisLi appState;
+	private TextView placa;
+	private TextView nombre;
+	private EditText comentarios;
+	Intent i = new Intent();
+	private Context context;	
+	
+	private TextView pregnombre;
+	private ImageView nombreok;
+	private ImageView nombremal;
+	private TextView pregplaca;
+	private ImageView placaok;
+	private ImageView placamal;
+	private TextView califica;
+	private ImageView estrella1;
+	private ImageView estrella2;
+	private ImageView estrella3;
+	private ImageView estrella4;
+	private ImageView estrella5;
+	private TextView pregcomentarios;
+	private ImageView voz;
+	private ImageButton enviar;
+
+	
+	private int anchoplaca;
+	private int altoplaca;
+	
+	private int anchoplacaok;
+	private int altoplacaok;
+	
+	private int anchoplacamal;
+	private int altoplacamal;
+	
+	private int anchonombre;
+	private int altonombre;
+	
+	private int anchonombreok;
+	private int altonombreok;
+	
+	private int anchonombremal;
+	private int altonombremal;
+	
+	private int anchoestrella1;
+	private int altoestrella1;
+	private int anchoestrella2;
+	private int altoestrella2;
+	private int anchoestrella3;
+	private int altoestrella3;
+	private int anchoestrella4;
+	private int altoestrella4;
+	private int anchoestrella5;
+	private int altoestrella5;
+	
+	private int anchocomentarios;
+	private int altocomentarios;
+	
+	private int anchovoz;
+	private int altovoz;
+	
+	private int anchoenviar;
+	private int altoenviar;
+	
+	private int anchopregplaca;
+	private int anchopregnombre;
+	private int anchocalifica;
+	private int anchopregcomentarios;
+	
+	private int altopregplaca;
+	private int altopregnombre;
+	private int altocalifica;
+	private int altopregcomentarios;
+	
+	
+	private TextToSpeech tts;
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {		
+		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
+		appState = ((TaxisLi) context);		
+		setContentView(R.layout.formulario);
+		
+		/****************COMPONENTES DEL FORMULARIO*****************/
+		pregplaca=(TextView) findViewById(R.id.preguntaplaca);
+		placa=(TextView)findViewById(R.id.placas);
+		placaok=(ImageView)findViewById(R.id.bienplaca);
+		placamal=(ImageView)findViewById(R.id.malplaca);
+		
+		pregnombre=(TextView) findViewById(R.id.preguntanombre);
+		nombre=(TextView)findViewById(R.id.nombre);
+		nombreok=(ImageView)findViewById(R.id.biennombre);
+		nombremal=(ImageView)findViewById(R.id.malnombre);
+		
+		califica=(TextView) findViewById(R.id.calificacion);
+		estrella1=(ImageView)findViewById(R.id.estrella1);
+		estrella2=(ImageView)findViewById(R.id.estrella2);
+		estrella3=(ImageView)findViewById(R.id.estrella3);
+		estrella4=(ImageView)findViewById(R.id.estrella4);
+		estrella5=(ImageView)findViewById(R.id.estrella5);
+		
+		pregcomentarios=(TextView) findViewById(R.id.precomentarios);
+		comentarios=(EditText)findViewById(R.id.comentarios);		
+		voz=(ImageView)findViewById(R.id.vozcomen);
+		
+		enviar= (ImageButton) findViewById(R.id.enviar);
+		/************************************************************/
+		
+//		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+//						
+//		Ancho= Integer.toString(display.getWidth());
+//        Alto=Integer.toString(display.getHeight());
+//        Densidad = getResources().getDisplayMetrics().densityDpi;
+//        anchoPantalla = Integer.parseInt(Ancho);
+//        altoPantalla = Integer.parseInt(Alto);
+        /************************************************************/
+        appState.setEstadoUnidad(EstadosUnidad.ENCUESTA);
+//        TamamoComponentes();
+//        placa.post(new Runnable() {
+//            
+//            @Override
+//            public void run() {
+//                Log.i(TAG, module + "Entra a revizar tamanos " );
+//                SizeComponent();  
+//                
+//            }
+//        });
+        
+        
+		
+		placa.setText(  appState.getPlaca() + " ?");
+		nombre.setText(appState.getNombreTaxista() + " ?");
+		
+		appState.setFormucalificacion(3);		
+		estrella1.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella2.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella3.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella4.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella5.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		
+			
+	}
+	
+	
+	
+	
+	
+	public void SizeComponent(){
+		
+		
+		
+		anchoplaca= placa.getWidth();
+		altoplaca= placa.getHeight();
+		anchoplacaok= placaok.getWidth();
+		altoplacaok= placaok.getHeight();
+		anchoplacamal= placamal.getWidth();
+		altoplacamal= placamal.getHeight();
+		
+		anchonombre= nombre.getWidth();
+		altonombre= nombre.getHeight();
+		anchonombreok= nombreok.getWidth();
+		altonombreok= nombreok.getHeight();
+		anchonombremal= nombremal.getWidth();
+		altonombremal= nombremal.getHeight();
+		
+		anchoestrella1= estrella1.getWidth();
+		altoestrella1= estrella1.getHeight();
+		anchoestrella2= estrella2.getWidth();
+		altoestrella2= estrella2.getHeight();
+		anchoestrella3= estrella3.getWidth();
+		altoestrella3= estrella3.getHeight();
+		anchoestrella4= estrella4.getWidth();
+		altoestrella4= estrella4.getHeight();
+		anchoestrella5= estrella5.getWidth();
+		altoestrella5= estrella5.getHeight();
+		
+		anchocomentarios= comentarios.getWidth();
+		altocomentarios= comentarios.getHeight();
+		
+		anchovoz= voz.getWidth();
+		altovoz= voz.getHeight();
+		
+		anchoenviar= enviar.getWidth();
+		altoenviar= enviar.getHeight();
+		
+		if((anchoenviar!=0)&&(altoenviar!=0)){
+			appState.setAltoenviar(enviar.getHeight());
+			appState.setAnchoenviar(enviar.getWidth());
+		}
+		
+		
+		anchopregplaca= pregplaca.getWidth();
+		anchopregnombre= pregnombre.getWidth();
+		anchocalifica= califica.getWidth();
+		anchopregcomentarios=pregcomentarios.getWidth();
+		
+		altopregplaca= pregplaca.getHeight();
+		altopregnombre= pregnombre.getHeight();
+		altocalifica= califica.getHeight();
+		altopregcomentarios=pregcomentarios.getHeight();
+		
+		
+		
+		OrganizarPantalla();
+		
+		//Log.i(TAG, module + anchoenviar + anchocomentarios + anchoestrella4 + anchovoz + anchonombremal + anchonombre + altonombreok
+		//		+ altoplacamal + anchoplacaok + anchoplaca);
+				
+	}
+	
+	private void TamamoComponentes() {
+		
+		Bitmap bm=BitmapFactory.decodeResource(getResources(), R.drawable.enviar);					        
+		//int width= appState.getAnchoPantalla()/3;
+		int width= appState.getAnchoPantalla();
+		int height= appState.getAltoPantalla()/12;							 			
+		Bitmap resizedbitmap=Bitmap.createScaledBitmap(bm, width, height, true);					       
+		enviar.setImageBitmap(resizedbitmap);
+		if((appState.getAltoPantalla()<=320)&&(appState.getAnchoPantalla()>=240)){
+//			Bitmap bm3=BitmapFactory.decodeResource(getResources(), R.drawable.enviar);					        
+//			int width3= appState.getAnchoPantalla()/3;
+//			int height3= appState.getAltoPantalla()/12;							 			
+//			Bitmap resizedbitmap3=Bitmap.createScaledBitmap(bm3, width3, height3, true);					       
+//			enviar.setImageBitmap(resizedbitmap3);
+			
+			pregnombre.setTextSize(10);
+			pregplaca.setTextSize(10);
+			nombre.setTextSize(10);
+			placa.setTextSize(10);
+			califica.setTextSize(10);
+			comentarios.setTextSize(10);
+		}
+//		}else if((appState.getAltoPantalla()<=432)&&(appState.getAnchoPantalla()<=320)){
+//			Log.i(TAG, module + "+++++++++++432 x 320++++++++++++++++++");
+//			Bitmap bm3=BitmapFactory.decodeResource(getResources(), R.drawable.enviar);					        
+//			int width3= appState.getAnchoPantalla()/3;
+//			int height3= appState.getAltoPantalla()/12;											
+//			Bitmap resizedbitmap3=Bitmap.createScaledBitmap(bm3, width3, height3, true);					       
+//			enviar.setImageBitmap(resizedbitmap3);
+//		}else if((appState.getAltoPantalla()<=480)&&(appState.getAnchoPantalla()<=320)){
+//			Log.i(TAG, module + "+++++++++++480 x 320++++++++++++++++++");
+//			Bitmap bm3=BitmapFactory.decodeResource(getResources(), R.drawable.enviar);					        
+//			int width3= appState.getAnchoPantalla()/3;
+//			int height3= appState.getAltoPantalla()/12;											
+//			Bitmap resizedbitmap3=Bitmap.createScaledBitmap(bm3, width3, height3, true);					       
+//			enviar.setImageBitmap(resizedbitmap3);
+//			
+//		}else if((appState.getAltoPantalla()<=854)&&(appState.getAnchoPantalla()<=480)){
+//			Log.i(TAG, module + "+++++++++++854 x 480++++++++++++++++++");					
+//			Bitmap bm3=BitmapFactory.decodeResource(getResources(), R.drawable.enviar);					        
+//			int width3= appState.getAnchoPantalla()/3;
+//			int height3= appState.getAltoPantalla()/12;											
+//			Bitmap resizedbitmap3=Bitmap.createScaledBitmap(bm3, width3, height3, true);					       
+//			enviar.setImageBitmap(resizedbitmap3);
+//		}else if((appState.getAltoPantalla()<=1024)&&(appState.getAnchoPantalla()<=600)){
+//			
+//			Log.i(TAG, module + "+++++++++++<1024 x <600++++++++++++++++++");
+//			Bitmap bm3=BitmapFactory.decodeResource(getResources(), R.drawable.enviar);					        
+//			int width3= appState.getAnchoPantalla()/3;
+//			int height3= appState.getAltoPantalla()/12;											
+//			Bitmap resizedbitmap3=Bitmap.createScaledBitmap(bm3, width3, height3, true);					       
+//			enviar.setImageBitmap(resizedbitmap3);
+//		}else if((appState.getAltoPantalla()<=2024)&&(appState.getAnchoPantalla()>=800)){
+//			Bitmap bm3=BitmapFactory.decodeResource(getResources(), R.drawable.enviar);					        
+//			int width3= appState.getAnchoPantalla()/3;
+//			int height3= appState.getAltoPantalla()/12;											
+//			Bitmap resizedbitmap3=Bitmap.createScaledBitmap(bm3, width3, height3, true);					       
+//			enviar.setImageBitmap(resizedbitmap3);
+//		}
+		
+	}
+	
+	private void OrganizarPantalla() {
+		// TODO Auto-generated method stub	
+		
+		int separador, separador1;
+		int altoTotal = appState.getAltoPantalla()/6 + altopregplaca + altoplaca +10 + altoplacaok + altopregnombre + altonombre + 10+ altonombreok  + 10 + altocalifica+
+				altoestrella1 + 10  + altopregcomentarios + 30 + altoenviar;
+		
+		int aux= appState.getAltoPantalla()-10;
+		
+		if(altoTotal>aux){
+			separador=10;
+			separador1=0;
+			pregplaca.setTextSize(15);
+			pregnombre.setTextSize(15);
+			califica.setTextSize(15);
+			pregcomentarios.setTextSize(15);
+		}else{
+			separador=20;
+			separador1=10;
+		}
+		
+		pregplaca.setPadding((appState.getAnchoPantalla()/2) - (anchopregplaca/2), appState.getAltoPantalla()/6, 0, 0);
+		placa.setPadding((appState.getAnchoPantalla()/2) - (anchoplaca/2), 0, 0, separador1);		
+		placaok.setPadding(((appState.getAnchoPantalla()/2)-(anchoplacaok/2))-(anchoplacaok), 0, anchoplacaok + 10, 0);
+		
+		pregnombre.setPadding((appState.getAnchoPantalla()/2) - (anchopregnombre/2), 0, 0, 0);
+		nombre.setPadding((appState.getAnchoPantalla()/2) - (anchonombre/2), 0, 0, separador1);
+		nombreok.setPadding(((appState.getAnchoPantalla()/2)-(anchonombreok/2))-anchonombreok, 0, anchonombreok + 10, separador1);				
+		
+		califica.setPadding((appState.getAnchoPantalla()/2) - (anchocalifica/2), 0, 0, 0);
+		estrella1.setPadding(((appState.getAnchoPantalla()/2) - (anchoestrella1/2))-(anchoestrella1*2), 0, 0, separador1);
+		
+		
+		pregcomentarios.setPadding((appState.getAnchoPantalla()/2) - (anchopregcomentarios/2), 0, 0, 0);
+		//enviar.setPadding(appState.getAnchoPantalla()/8, separador, 0, 0);
+		
+		
+		
+		//enviar.setPadding(0, separador, 0, 0);
+		enviar.setPadding(0, 0, 0, 0);
+		
+		
+		
+//		LinearLayout.LayoutParams ubi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//		ubi.setMargins((appState.getAnchoPantalla()/2) - (anchopregplaca/2), altoPantalla/6, 0, 0);
+//		pregplaca.setLayoutParams(ubi);
+//		
+//		LinearLayout.LayoutParams ubi2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//		ubi2.setMargins((appState.getAnchoPantalla()/2) - (anchopregplaca/2), altoPantalla/5, 0, 0);
+//		placa.setLayoutParams(ubi2);
+									
+		
+		Log.i(TAG, module + "Alto pantalla: " + appState.getAltoPantalla() + " Ancho Pantalla: " + appState.getAnchoPantalla() + " AltoTotal: " + altoTotal);
+			
+
+		
+		
+	}
+
+
+	public void Placasi(View v){
+		
+		
+		
+		appState.setFormuplaca(1);	
+		placaok.setImageDrawable(this.getResources().getDrawable(R.drawable.ok));
+		placamal.setImageDrawable(this.getResources().getDrawable(R.drawable.malpresionado));
+		 Log.i(TAG, module + "PLACAS SI:");
+	}
+	
+	public void Placano(View v){
+		
+	
+		
+		appState.setFormuplaca(0);
+		placaok.setImageDrawable(this.getResources().getDrawable(R.drawable.okprecionado));
+		placamal.setImageDrawable(this.getResources().getDrawable(R.drawable.mal));
+		Log.i(TAG, module +": PLACAS NO: ");
+	}
+	    
+	public void Nombresi(View v){
+		
+		
+		
+		appState.setFormunombre(1);
+		nombreok.setImageDrawable(this.getResources().getDrawable(R.drawable.ok));
+		nombremal.setImageDrawable(this.getResources().getDrawable(R.drawable.malpresionado));
+		Log.i(TAG, module +": NOMBRE SI: ");
+	}
+	
+	public void Nombreno(View v){
+		
+		
+		
+		appState.setFormunombre(0);
+		nombremal.setImageDrawable(this.getResources().getDrawable(R.drawable.mal));
+		nombreok.setImageDrawable(this.getResources().getDrawable(R.drawable.okprecionado));
+		Log.i(TAG, module +": NOMBRE NO: ");
+	}
+	
+	public void uno(View v){
+		appState.setFormucalificacion(1);
+		estrella1.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella2.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		estrella3.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		estrella4.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		estrella5.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		Log.i(TAG, module +": CALIFICA 1: ");
+		
+	}
+	public void dos(View v){
+		appState.setFormucalificacion(2);
+		estrella1.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella2.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella3.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		estrella4.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		estrella5.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		
+		
+		Log.i(TAG, module +": CALIFICA 2: ");
+	}
+	
+	public void tres(View v){
+		appState.setFormucalificacion(3);		
+		estrella1.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella2.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella3.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella4.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		estrella5.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+		
+		Log.i(TAG, module +": CALIFICA 3: ");
+	}
+	public void cuatro(View v){
+		appState.setFormucalificacion(4);
+		
+		estrella1.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella2.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella3.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella4.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella5.setImageDrawable(this.getResources().getDrawable(R.drawable.estrella));
+				
+		Log.i(TAG, module +": CALIFICA 4: ");
+	}
+	public void cinco(View v){
+		appState.setFormucalificacion(5);
+		
+		estrella1.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella2.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella3.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella4.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		estrella5.setImageDrawable(this.getResources().getDrawable(R.drawable.estrellaluz));
+		
+		Log.i(TAG, module +": CALIFICA 5: ");
+	}
+	public void Enviar(View v){
+		
+		if((appState.getFormuplaca()==1)||appState.getFormuplaca()==0){
+			if((appState.getFormunombre()==1)||appState.getFormunombre()==0){
+				if((appState.getFormucalificacion()==1)||(appState.getFormucalificacion()==2)||(appState.getFormucalificacion()==3)
+						||(appState.getFormucalificacion()==4)||(appState.getFormucalificacion()==5)){
+					
+					Log.i(TAG, module +": DEBERIA ENVIAR : ");
+					String comentariosusuario = comentarios.getText().toString();
+					appState.setFormucomentario(comentariosusuario);
+					
+					String Total = "E|" + appState.getNumberPhone() + "|" + appState.getFormuplaca() + "|" + appState.getFormunombre() + "|" + appState.getFormucalificacion() +
+							"|" + appState.getFormucomentario() +  "|" + appState.getIdServicio() + "|" + appState.getPlaca();
+					
+					appState.setFormutotal(Total);
+						
+					appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+					
+					
+					try{							
+			        
+			        	Log.e(TAG, module + ": Se Envia: " + appState.getFormutotal());
+			        	
+			        	
+			        	Intent form = new Intent();
+			        	form.putExtra("CMD", C.SEND);
+			        	form.putExtra("DATA", appState.getFormutotal());
+			        	form.setAction(C.COM);
+						getApplicationContext().sendBroadcast(form);
+			        	
+								
+						Intent talk = new Intent();
+						talk.setAction(C.TEXT_TO_SPEECH);
+						talk.putExtra("CMD", C.HABLAR);
+						talk.putExtra("TEXTHABLA", "GRACIAS PORPREFERIRNOS      "  + appState.getNombreUsuario());
+						sendBroadcast(talk);
+						
+		       		}catch(Exception e){
+		       			Log.i(TAG, module + ": Se jedeee " +  e);
+		       			e.printStackTrace();
+		       		}				
+					
+
+					appState.setInicializar(1);
+//					Intent login = new Intent();																	
+//			        login.setClass(getApplicationContext(), AMapa.class);
+//			        startActivity(login);
+			        
+					new Handler().postDelayed(new Runnable(){
+			            public void run(){
+					// Cuando pasen los 5 segundos, pasamos a la actividad principal de la aplicaci���n
+			        	     
+			            	CerrardesdeForm();
+			            
+
+			            };
+			        }, 3000);
+					
+					
+			        
+			        //finish();
+				}else{
+					final AlertDialog.Builder alertaSimple = new AlertDialog.Builder(this);
+				   	 alertaSimple.setTitle("    AYUDENOS A MEJORAR ");
+				   	 alertaSimple.setMessage("Por Favor Califique de 1 a 5 nuestro Servicio");
+				   	 alertaSimple.setPositiveButton("Aceptar",
+				   	new DialogInterface.OnClickListener() {
+				    	     public void onClick(DialogInterface dialog, int which) {
+				    	     }
+				    	    });
+				    	  
+				    	  alertaSimple.show();
+				}
+			}else{
+				final AlertDialog.Builder alertaSimple = new AlertDialog.Builder(this);
+			   	 alertaSimple.setTitle("      AYUDENOS A MEJORAR");
+			   	 alertaSimple.setMessage("Por Favor verifique si el nombre es el correcto...");
+			   	 alertaSimple.setPositiveButton("Aceptar",
+			   	new DialogInterface.OnClickListener() {
+			    	     public void onClick(DialogInterface dialog, int which) {
+			    	     }
+			    	    });
+			    	  
+			    	  alertaSimple.show();
+			}
+		}else{
+			final AlertDialog.Builder alertaSimple = new AlertDialog.Builder(this);
+		   	 alertaSimple.setTitle("      AYUDENOS A MEJORAR");
+		   	 alertaSimple.setMessage("Por Favor verifique si las placas son correctas");
+		   	 alertaSimple.setPositiveButton("Aceptar",
+		   	new DialogInterface.OnClickListener() {
+		    	     public void onClick(DialogInterface dialog, int which) {
+		    	     }
+		    	    });
+		    	  
+		    	  alertaSimple.show();
+		}
+	
+	}
+	
+	
+	public void CerrardesdeForm(){
+		
+		
+		
+		try{
+			Log.i(TAG, module + "--------------------------CIERRAR TODO");
+			appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+	
+	        Intent intentComunication = new Intent(AFormulario.this, ServiceTCP.class);
+	 		stopService(intentComunication);
+	 		
+	 		Intent intentTts = new Intent(AFormulario.this, ServiceTTS.class);
+	 		stopService(intentTts);	
+	 		
+	 		Intent intentTimer = new Intent(AFormulario.this, ServiceTimer.class);
+	 		stopService(intentTimer);	
+			
+			
+	 		finish();	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		
+//		if(appState.getSepagacon().equals("VALE")){
+//			Log.i(TAG, module + "--------------------------NO DEBE CERRAR TODO");
+//			appState.setEstadoUnidad(EstadosUnidad.ESPERADEPAGO);
+//			finish();
+//			Intent intentTimer = new Intent(AFormulario.this, ServiceTimer.class);
+//	        startService(intentTimer);	
+//			
+//		}else{
+//			Log.i(TAG, module + "--------------------------CIERRAR TODO");
+//			appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+//	
+//	        Intent intentComunication = new Intent(AFormulario.this, ServiceTCP.class);
+//	 		stopService(intentComunication);
+//	 		
+//	 		Intent intentTts = new Intent(AFormulario.this, ServiceTTS.class);
+//	 		stopService(intentTts);	
+//	 		
+//	 		Intent intentTimer = new Intent(AFormulario.this, ServiceTimer.class);
+//	 		stopService(intentTimer);	
+// 		
+// 		
+//	    finish();	
+//		}
+	}
+	
+	public void Habla(View v){
+		
+	}
+	
+	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+ 
+		switch(keyCode){
+			case KeyEvent.KEYCODE_BACK:
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				 
+			    builder.setTitle("POR FAVOR CALIFIQUE EL SERVICIO");
+			    builder.setMessage("¿Confirma que desea Salir de TaxisLibres?");
+			    builder.setPositiveButton("Salir?", new OnClickListener() {
+			    public void onClick(DialogInterface dialog, int which) {
+			        Log.i("Dialogos", "Confirmacion Aceptada.");
+
+			        appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+					//finish();
+			        CerrardesdeForm();
+					//onDestroy();
+			        
+			    }
+			    });
+			    builder.setNegativeButton("Cancelar", new OnClickListener() {
+			    public void onClick(DialogInterface dialog, int which) {
+			        Log.i("Dialogos", "Confirmacion Cancelada.");
+			       
+			    }
+			    });
+			 
+			    builder.show();
+				return true;
+			
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		//appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+		Log.i(TAG, module + "Se cerro la Aplicacion");
+		
+		finish();
+	}
+
+
+
+
+
+	
+	 
+	
+}

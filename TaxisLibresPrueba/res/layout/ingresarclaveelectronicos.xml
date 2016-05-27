@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#10000000"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fondoclaveelectronicos"
+        android:gravity="center"
+        android:orientation="vertical" >
+        
+        <ImageButton
+            android:id="@+id/cerraringresarclave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="143dp"
+            android:background="@null"
+            android:onClick="CerrarVentanaClave"
+            android:src="@drawable/botonsaliradicionales" />
+
+        <TextView
+            android:id="@+id/renglon1claveelectronicos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="INGRESAR LA CLAVE PARA"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/renglon2claveelectronicos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="PAGOS ELECTRÓNICOS"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/boxclaveelectronicos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/campoingesoclave"
+            android:inputType="number"
+            android:maxLength="15"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="16dp" />
+
+        <ImageButton
+            android:id="@+id/enviarclaveelectronicos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="EnviarClave"
+            android:src="@drawable/botonaceptarblanco" />
+    </LinearLayout>
+
+</LinearLayout>

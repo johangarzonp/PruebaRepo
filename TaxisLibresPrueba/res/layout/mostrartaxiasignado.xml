@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/layoutmostrarinfotaxi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cuadroservicioasignado"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/cerrarmostrarinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="6dp"
+            android:background="@null"
+            android:onClick="CerrarInfoTaxi"
+            android:src="@drawable/botonsaliradicionales" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tituloconductorasignado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="1dp"
+                android:background="@drawable/avisoconductorasignado" />
+
+            <ImageView
+                android:id="@+id/fototaxista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/sin_foto" />
+
+            <TextView
+                android:id="@+id/avisoenbreve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text=" EN BREVE EL TAXI DE "
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/infoplacataxi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxWidth="300dp"
+                android:text="ABC123"
+                android:textAlignment="center"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/avisonombreconductor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="NOMBRE DEL CONDUCTOR"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/infonombreconductor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxWidth="300dp"
+                android:text="PEPITO PEREZ"
+                android:textAlignment="center"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/avisodistancia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="DISTANCIA"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/aceptainfoservicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:onClick="AceptaTaxi"
+                android:src="@drawable/botonaceptar" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

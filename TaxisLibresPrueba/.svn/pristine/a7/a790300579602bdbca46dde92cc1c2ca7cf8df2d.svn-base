@@ -1,0 +1,339 @@
+package com.cotech.taxislibres.activities;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.cotech.taxislibres.R;
+import com.cotech.taxislibres.TaxisLi;
+
+
+public class AEntrada extends Activity {
+
+	
+	private static final String TAG = "TaxisLibres";
+	protected String module = "Entrada";
+	private boolean initialized = false;
+	private TaxisLi appState;
+	private EditText nombre;
+	private EditText telefono;
+	//private EditText correo;
+	private ImageView entrar;
+	private TextView textnombre;
+	private TextView texttelefono;
+	//private TextView textcorreo;
+	private int altonombre;
+	private int anchonombre;
+	private int altotelefono;
+	private int anchotelefono;
+	private int anchoentrar;
+	private int altoentrar;
+	private int altotextnombre;
+	private int anchotextnombre;
+	private int altotexttelefono;
+	private int anchotexttelefono;
+	
+	private String Alto;
+	private String Ancho;
+	private int anchoPantalla;
+	private int altoPantalla;		
+	private int Densidad;
+
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		super.onCreate(savedInstanceState);
+	    Context context = getApplicationContext();
+		appState = ((TaxisLi) context);
+	    setContentView(R.layout.entrada);
+	    
+	    textnombre=(TextView) findViewById(R.id.textnombre);
+	    nombre = (EditText)  findViewById(R.id.nombre);
+	    texttelefono=(TextView) findViewById(R.id.texttelefono);
+	    telefono = (EditText)  findViewById(R.id.telefono);
+//	    textcorreo=(TextView) findViewById(R.id.textcorreo);
+//	    correo = (EditText)  findViewById(R.id.correo);
+	    entrar = (ImageView) findViewById(R.id.entrar);
+	    	    
+	    Log.i(TAG, module + ":+++++++++++++++  " + appState.getAnchoentrar() + "  "+ appState.getAltoentrar() ); 
+	    Log.i(TAG, module + ":+++++++++++++++  " + appState.getNombreUsuario() + "  "+ appState.getNumberPhone() ); 
+	    /************************************************************/
+		
+		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+						
+		Ancho= Integer.toString(display.getWidth());
+        Alto=Integer.toString(display.getHeight());                      
+        appState.setAnchoPantalla(Integer.parseInt(Ancho));
+        appState.setAltoPantalla(Integer.parseInt(Alto));
+        appState.setDensidad(getResources().getDisplayMetrics().densityDpi);
+        Densidad = getResources().getDisplayMetrics().densityDpi;
+        anchoPantalla = Integer.parseInt(Ancho);
+        altoPantalla = Integer.parseInt(Alto);
+                       
+        Log.i( TAG, module+":+++++++++++ DENSIDAD+++++++: " + Densidad);
+        Log.i( TAG, module+":+++++++++++ ANCHO ++++++++: " + appState.getAnchoPantalla());
+        Log.i( TAG, module+":+++++++++++ ALTO +++++++++: " + appState.getAltoPantalla());
+              
+        /****************************Si en actualizar Datos********************************/
+        if(appState.getFlagActDatos()==2){
+        	appState.setFlagActDatos(1);
+        	nombre.setText(appState.getNombreUsuario());
+        	telefono.setText(appState.getNumberPhone());
+        	//correo.setText(appState.getCorreoUsuario());
+        }
+        /**********************************************************************************/
+        
+//        TamanoComponentes();
+//        /************************************************************/
+//        nombre.post(new Runnable() {            
+//            @Override
+//            public void run() {
+//                // TODO Auto-generated method stub
+//                Log.i(TAG, module + "Entra a revizar tamanos " );
+//                SizeComponent();                  
+//                OrganizarPantalla();
+//            }
+//        });
+//        /************************************************************/
+
+	    if((!appState.getNombreUsuario().equals("Jaime Lombana"))&&(!appState.getNumberPhone().equals("3111111"))){
+	    	if((!appState.getNombreUsuario().equals(""))&&(!appState.getNumberPhone().equals(""))){
+	    		if((!appState.getNombreUsuario().equals("0"))&&(!appState.getNumberPhone().equals("0"))){
+	    			
+//	    			if(!initialized){
+//				    	initServices();				    
+//				    }
+	    			
+	    			
+	    			if(appState.getFlagActDatos()==1){
+	    				appState.setFlagActDatos(0);
+	    			}else{
+	    			
+		    			try{
+			    			Intent login = new Intent();
+			    			if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+								login.setClass(getApplicationContext(), AMapa.class);
+							}else{
+								login.setClass(getApplicationContext(), AMapaUpVersion.class);
+							}	    			
+			    			//login.setClass(getApplicationContext(), AFormulario.class);
+			    	        startActivity(login);
+			    	        finish();
+		    			}catch (Exception e){
+		    				Log.i( TAG, module+": Sale por acaaaaa" + e);
+		    			}
+	    			}
+	    		}	    	
+	    	}	    	
+	    }	    	   
+	}
+	
+	
+	private void TamanoComponentes() {
+		// TODO Auto-generated method stub		
+		//Densidades 120+++++160++++++240+++++320+++++
+		//240x320++++240x400+++++240x432
+		//320x480++++480x800+++++480x854
+		//600x1024++++720x1280++++800x1280
+		Log.i(TAG, module + ": ENTRA A SIZE TAMANOFINAL"); 				
+//		Bitmap bm=BitmapFactory.decodeResource(getResources(), R.drawable.entrar);					        
+//		//int width= appState.getAnchoPantalla()/3;
+//		int width= appState.getAnchoPantalla();
+//		int height= appState.getAltoPantalla()/12;
+//		Bitmap resizedbitmap=Bitmap.createScaledBitmap(bm, width, height, true);					       
+//	    entrar.setImageBitmap(resizedbitmap);					
+	}
+
+	public void SizeComponent(){
+		Log.i(TAG, module + ": ENTRA A SIZE COMPONENT"); 
+		anchonombre= nombre.getWidth();
+		altonombre= nombre.getHeight();
+		anchotelefono= telefono.getWidth();
+		altotelefono= telefono.getHeight();
+//		anchoentrar= entrar.getWidth();
+//		altoentrar= entrar.getHeight();							
+		anchotexttelefono= texttelefono.getWidth();
+		altotexttelefono= texttelefono.getHeight();
+		anchotextnombre= textnombre.getWidth();
+		altotextnombre= textnombre.getHeight();
+
+		/***************************���**************/	
+			
+	}
+
+	private void OrganizarPantalla() {
+		// TODO Auto-generated method stub
+		Log.i(TAG, module + ": ENTRA A ORGANIZA"); 
+		int separador1=0;
+		int separador2=25;
+		
+		Log.i( TAG, module+": Altura Pantalla: " +appState.getAltoPantalla() + " Ancho de la Pantalla : " + appState.getAnchoPantalla());
+		
+		if(altoPantalla<=320){			
+			separador1=0;
+		}else if(altoPantalla<=400){
+			separador1=10;
+		}else if(altoPantalla<=860){
+			separador1=20;
+		}else if(altoPantalla<=2000){
+			separador1=50;
+			separador2=60;
+		}
+		
+		LinearLayout.LayoutParams pos1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		//pos1.setMargins((anchoPantalla/2) - (anchonombre/2), altoPantalla/3 + separador2, 0, separador1);
+		pos1.setMargins((anchoPantalla/2) - (anchonombre/2), altoPantalla/3, 0, 0);
+		textnombre.setLayoutParams(pos1);
+		
+		
+		LinearLayout.LayoutParams pos2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		pos2.setMargins((anchoPantalla/2) - (anchonombre/2), 0, 0, 0);
+		nombre.setLayoutParams(pos2);
+		
+		
+		LinearLayout.LayoutParams pos3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		pos3.setMargins((anchoPantalla/2) - (anchonombre/2), 0, 0, 0);
+		texttelefono.setLayoutParams(pos3);
+		
+		LinearLayout.LayoutParams pos4 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		pos4.setMargins((anchoPantalla/2) - (anchotelefono/2), 0, 0, 0);		
+		telefono.setLayoutParams(pos4);
+		
+		
+//		LinearLayout.LayoutParams pos5 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//		pos5.setMargins((anchoPantalla/2) - (anchonombre/2), 0, 0, 0);
+//		textcorreo.setLayoutParams(pos5);
+		
+//		LinearLayout.LayoutParams pos6 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//		pos6.setMargins((anchoPantalla/2) - (anchotelefono/2), 0, 0, 0);		
+//		correo.setLayoutParams(pos6);
+		
+		
+		
+		
+		LinearLayout.LayoutParams pos7 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		//pos5.setMargins((anchoPantalla/2) - (anchoentrar/2), 0, 0, 0);
+		pos7.setMargins(0, 0, 0, 0);
+		entrar.setLayoutParams(pos7);
+		
+		
+		
+//		nombre.setPadding((anchoPantalla/2) - (anchonombre/2), altoPantalla/6, 0, 0);
+//		telefono.setPadding((anchoPantalla/2) - (anchotelefono/2), 0, 0, 0);
+//		entrar.setPadding((anchoPantalla/2) - (anchoentrar/2), 0, 0, 0);
+	}
+
+
+	public void Entrar(View v){	
+		String nombreusuario = nombre.getText().toString();
+		String telefonousuario = telefono.getText().toString();
+		//String correousuario = correo.getText().toString();
+						
+		appState.setNombreUsuario(nombreusuario);
+		appState.setNumberPhone(telefonousuario);
+		//appState.setCorreoUsuario(correousuario);
+		
+		
+		
+		
+		
+		//if(nombreusuario.equals("")&&(telefonousuario.equals("")&&(correousuario.equals("")))){
+		if(nombreusuario.equals("")&&(telefonousuario.equals(""))){
+			Toast.makeText(getApplicationContext(), "POR FAVOR INGRESE SUS DATOS ", 5000).show();
+		}else{				
+		
+			String uno = telefonousuario.substring(0, 1);
+			String dos = telefonousuario.substring(1, 2);
+			String tres = telefonousuario.substring(2, 3);
+			String cuatro = telefonousuario.substring(3, 4);
+			Log.i (TAG, module+ " " + uno + " " + dos +" " + tres +" " +cuatro);
+			//if(uno.equals("3")){
+			if((uno.equals("3"))||(uno.equals("5"))){
+				//if((dos.equals("0"))||(dos.equals("1"))||(dos.equals("2"))){
+				if((dos.equals("0"))||(dos.equals("1"))||(dos.equals("2"))||(dos.equals("3"))||(dos.equals("4"))||(dos.equals("5"))){
+					//if((cuatro.equals("2"))||(cuatro.equals("3"))||(cuatro.equals("4"))||(cuatro.equals("5"))||(cuatro.equals("6"))
+							//||(cuatro.equals("7"))||(cuatro.equals("8"))||(cuatro.equals("9"))){
+					if((cuatro.equals("1"))||(cuatro.equals("2"))||(cuatro.equals("3"))||(cuatro.equals("4"))||(cuatro.equals("5"))||(cuatro.equals("6"))
+							||(cuatro.equals("7"))||(cuatro.equals("8"))||(cuatro.equals("9"))){
+						if(telefonousuario.length()==10){
+							Log.i(TAG, module+": USUARIO: " + appState.getNombreUsuario() + " TELEFONO: " + appState.getNumberPhone());
+							if(appState.getNombreUsuario().equals("")){
+								
+									Toast.makeText(getApplicationContext(), "POR FAVOR DIGITE SUS DATOS ", 5000).show();
+					
+							}else if(appState.getNumberPhone().equals("")){
+								Toast.makeText(getApplicationContext(), "POR FAVOR DIGITE SUS DATOS ", 5000).show();
+							}else{
+								
+								
+	//							if(!initialized){
+	//						    	initServices();			    	
+	//						    }
+						
+//								if(correousuario.equals("")){
+								//if (correousuario.indexOf("@")>0 ){
+									Log.i(TAG, module+": LOGIN CLICKED");
+									Intent login = new Intent();
+									if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+										login.setClass(getApplicationContext(), AMapa.class);
+									}else{
+										login.setClass(getApplicationContext(), AMapaUpVersion.class);
+									}
+									
+							        
+									//login.setClass(getApplicationContext(), AFormulario.class);
+							        startActivity(login);
+							        
+							        
+//							        /******************PARA EL SDK*************************/
+//							        // Instantiate MAT object with your advertiser ID and key
+//							           MobileAppTracker mobileAppTracker = new MobileAppTracker(this, "12116",
+//							           "6b69c1b7197136782c62cf508d25c98b");
+//							        mobileAppTracker.trackAction("registration");
+							        
+							        
+							        finish();
+//									
+//								}else{
+//								
+//									Toast.makeText(getApplicationContext(), "POR FAVOR INGRESE SU CORREO ", 5000).show();
+//								}
+							}
+						}else{
+							Toast.makeText(getApplicationContext(), "EL NUMERO DE CELULAR ESTA INCORRECTO ", 5000).show();
+							
+						}
+					}else{
+						Toast.makeText(getApplicationContext(), "EL NUMERO DE CELULAR ESTA INCORRECTO ", 5000).show();
+						
+					}
+				}else{
+					Toast.makeText(getApplicationContext(), "EL NUMERO DE CELULAR ESTA INCORRECTO ", 5000).show();
+					
+				}
+			}else{
+				Toast.makeText(getApplicationContext(), "EL NUMERO DE CELULAR ESTA INCORRECTO ", 5000).show();
+				
+			}
+		}
+	
+	
+	}
+	
+	
+	
+}

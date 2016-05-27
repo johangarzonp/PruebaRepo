@@ -1,0 +1,153 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/layoutmenuadicionales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fondoadicionales"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/cancelaradicionales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="205dp"
+            android:layout_marginTop="6dp"
+            android:background="@null"
+            android:onClick="CancelarAdd"
+            android:src="@drawable/botonsaliradicionales" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:paddingLeft="20dp" >
+
+            <TextView
+                android:id="@+id/tituloadicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/titulodatosadicionales" />
+
+            <EditText
+                android:id="@+id/boxeditardireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/boxadicionles"
+                android:inputType="textCapWords"
+                android:maxLength="100"
+                android:paddingLeft="10dp"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:textStyle="bold" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/titulobarrioadicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/titulobarrio" />
+
+            <EditText
+                android:id="@+id/boxeditarbarrio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/boxadicionles"
+                android:inputType="textCapWords"
+                android:maxLength="100"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:textStyle="bold" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/tituloindicacionesadicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/tituloindicaciones" />
+
+            <EditText
+                android:id="@+id/boxeditarindicaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/boxadicionles"
+                android:hint="Int,Ap,Cerca de..."
+                android:inputType="textCapWords"
+                android:maxLength="100"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:textStyle="bold" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/barraopcionesfavoritos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageButton
+                android:id="@+id/confirmaradicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="ConfirmarAdd"
+                android:src="@drawable/botonconfirmar" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/barramasopciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageButton
+                android:id="@+id/masopciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="MasOpciones"
+                android:src="@drawable/textomasopciones" />
+            
+            <ImageButton
+                android:id="@+id/botonmasopciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="MasOpciones"
+                android:src="@drawable/flechamasopciones" />
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

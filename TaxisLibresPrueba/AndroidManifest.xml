@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cotech.taxislibres"
+    android:versionCode="1608"
+    android:versionName="3.0.8" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="23" />
+
+    <permission
+        android:name="net.sgoliver.android.mapasapi2.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="net.sgoliver.android.mapasapi2.permission.MAPS_RECEIVE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <permission
+        android:name="com.cotech.taxislibres.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.cotech.taxislibres.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+
+    <application
+        android:name=".TaxisLi"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:process="com.cotech.taxislibres.share.process"
+        android:theme="@style/CustomTheme" >
+        <service android:name="com.cotech.taxislibres.services.ServiceTTS" >
+        </service>
+        <service android:name="com.cotech.taxislibres.services.ServiceTCP" >
+        </service>
+        <service android:name="com.cotech.taxislibres.services.ServiceTimer" >
+        </service>
+        <service android:name="com.cotech.taxislibres.GCMIntentService" />
+
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+            <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            <action android:name="android.intent.action.ACTION_SCREEN_OFF" />
+            <action android:name="android.intent.action.ACTION_SCREEN_ON" />
+            <action android:name="android.intent.action.ACTION_UMS_CONNECTED" />
+            <action android:name="android.intent.action.ACTION_UMS_DISCONNECTED" />
+            <action android:name="android.intent.action.ACTION_USER_PRESENT" />
+            <action android:name="android.net.conn.BACKGROUND_DATA_SETTING_CHANGED" />
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+
+        <activity
+            android:name="com.cotech.taxislibres.activities.ARegistrarTarjeta"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.APagarVale"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AConfirmaPago"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AFormPagos"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ASolicitud"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AMapaUpVersion"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/BarraTheme" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AMapa"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AFormulario"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AEntrada"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AServicios"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AListarTarjetas"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ATermyCond"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AListarFavoritos"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ACompletarAdicionales"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AConfirmarSolicitud"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ALlegoTaxi"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AVerAlfrente"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.APreguntarAbordo"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ASalirApp"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ASolicitarNuevamente"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ACompartirServicio"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AReconfirmarAbordo"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ACancelarServicio"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ACalificarServicio"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AVentanaPago"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ASinInternet"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.APedirClaveElectronicos"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ARegistrarClaveElectronicos"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ABorrarHistorico"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AVerHistorico"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AActualizarDatos"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.ATaxistaCanceloServ"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AManualUsuario"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AGuardarFavoritos"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AMostrarAdicionales"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity android:name="com.cotech.taxislibres.GCMMessageView" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AChatTaxista"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AVerPromos"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Panel" >
+     		>
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AChatCentral"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AListarVales"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AScanQr"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cotech.taxislibres.activities.AVerInfoScaner"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        
+        <activity android:name="io.card.payment.CardIOActivity" android:configChanges="keyboardHidden|orientation" android:hardwareAccelerated="true"/>
+    	<activity android:name="io.card.payment.DataEntryActivity" android:screenOrientation="portrait"/>
+        
+    	<activity
+            android:name="com.cotech.taxislibres.activities.GoogleAnalyticsApp"
+            android:label="@string/app_name"
+            >
+        </activity>
+    	
+        <activity
+            android:name="com.cotech.taxislibres.activities.ASplash"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+             >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBWAocw1v4uf8928AbVcygxLYPJKJ_hRvA" />
+
+        <!-- DEBUG KEY ASUS:       AIzaSyCgoIpsVbuSz44NyE3wXAb0Cu2eqx3dZ38 -->
+        <!-- DEBUG KEY:            AIzaSyDxnebDhQrR7AY6JWDgcr_ByDu_alvc-4I -->
+        <!-- RELEASE KEY:          AIzaSyCzSUl7cOQ0wzMalAYvWixW_XgmFmVzWNI -->
+
+
+        <!-- DEBUG KEY PC JOHAN:   AIzaSyCn6L6h-gbrr9dhkM65bDwvjuVWOUrUn2o -->
+        <!-- RELEASE KEY PC JOHAN: AIzaSyDQmyP5nIVIf0BBLK284YdvpMkMdKCqt9A -->
+        <!-- Key 8Oct/2015:        AIzaSyBWAocw1v4uf8928AbVcygxLYPJKJ_hRvA -->
+        <!-- Key Feb3/2016:		   AIzaSyAdfQUbxfr1xoXQFuPZ5tmpGnHHbJkuCIU -->
+
+        <receiver
+            android:name="com.mobileapptracker.Tracker"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.cotech.taxislibres" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        
+        <meta-data
+        android:name="com.google.android.gms.analytics.globalConfigResource"
+        android:resource="@xml/global_tracker" />
+        
+        
+    </application>
+
+    <supports-screens android:anyDensity="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    
+</manifest>

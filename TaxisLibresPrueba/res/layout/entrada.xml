@@ -1,0 +1,198 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/fondoencuestanueva">
+    
+        <LinearLayout
+        android:id="@+id/layoutentrada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/layouttextnombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textnombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="1dp"
+                android:background="@drawable/nombredeusuario" 
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutnombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/boxregistro"
+                android:hint="Nombre de Usuario"
+                android:inputType="textCapWords"
+                android:maxLength="50"
+            	android:paddingLeft="8dp"
+            	android:paddingRight="8dp"
+                android:textColor="#777777"
+                android:textSize="18dp"
+                
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layouttexttelefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/texttelefono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="1dp"
+                android:background="@drawable/titulotelefono" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/telefonolayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/telefono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/boxregistro"
+                android:hint="Teléfono"
+                android:inputType="number"
+                android:maxLength="10"
+                android:paddingLeft="8dp"
+            	android:paddingRight="8dp"
+                android:numeric="integer"
+                android:textColor="#777777"
+                android:textSize="18dp"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layouttextoemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textoemail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:textSize="1dp"
+                android:background="@drawable/tituloemail" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emaillayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/emailusuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/boxregistro"
+                android:hint="          "
+                android:inputType="textEmailAddress"
+                android:maxLength="50"
+                android:paddingLeft="8dp"
+            	android:paddingRight="8dp"
+                android:textColor="#777777"
+                android:textSize="16dp"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/paislayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/paisusuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="1dp"
+                android:background="@drawable/titulopais" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/escogerpaislayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical" >
+
+            <Spinner
+                android:id="@+id/escogerpais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="1dp"
+                android:textAlignment="gravity"
+                android:entries="@style/spinnerItemStyle"
+                android:background="@drawable/selectorpais" />
+        </LinearLayout>
+        
+        <LinearLayout
+        android:id="@+id/layoutterminos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+
+        <ImageButton
+            android:id="@+id/terminos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="Terminos"
+            android:src="@drawable/aceptaterminos" />
+    </LinearLayout>
+        
+    </LinearLayout>
+
+    
+       
+    <LinearLayout
+        android:id="@+id/layoutbotoningresar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/barrabajaencuesta"
+        android:gravity="center"
+        android:orientation="horizontal" 
+        >
+
+        <ImageButton
+            android:id="@+id/entrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="Entrar"
+            android:src="@drawable/ingresarapp" />
+        
+    </LinearLayout>
+
+</RelativeLayout>

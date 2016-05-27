@@ -1,0 +1,39 @@
+package com.cotech.taxislibres;
+
+public class C {	
+		
+	//INTERFAZ AMAP
+		public static final String MAP = "MAP";
+		public static final int CANCEL_PROCESSDIALOG = 1;
+		public static final int TOAST = 2;
+		public static final int INVISIBLEBOTON = 3;
+		public static final int AVISO_TAXI = 4;
+		public static final int UBICACION = 5;
+		public static final int PREGUNTAMOVIL = 6;
+		public static final int MSGTAXISTA = 7;
+		public static final int SONIDOALFRENTE=8;
+		public static final int CERRARAPP=9;
+		public static final int RECIBIOIMAGEN=10;
+		
+		public static final int NUM_FRECUENTES = 5;
+		
+		
+		public static final int PEDIR_TAXI = 11;
+			
+		
+	// MODULO COMUNICACION
+		public static final String COM = "COM";
+		public static final int SEND = 1;
+		public static final int DISCONECT = 2;	
+		
+	// MODULO DE TEXT TO SPEECH	
+		public static final String TEXT_TO_SPEECH = "TEXT_TO_SPEECH";
+		public static final int HABLAR = 1;
+		
+	// MODULO DATA BASE
+		public static final int NUM_MENSAJES = 100;
+		
+		
+		
+
+}

@@ -1,0 +1,280 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondoencuestanueva" >
+
+    <LinearLayout
+        android:id="@+id/layoutpartearribaencuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textoencuestadesatisfaccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/avisoencuestadesatisfaccion"
+            android:textSize="1dp" />
+
+        <TextView
+            android:id="@+id/textoencuesta1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/avisoopinionimportante"
+            android:textSize="1dp" />
+
+        <TextView
+            android:id="@+id/textoencuesta2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/avisoexperiencia"
+            android:textSize="1dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutcosto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imagecostoservicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="EscogioOpciones"
+                android:src="@drawable/iconocostoservicio" />
+
+            <ImageView
+                android:id="@+id/imagestar1costo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:onClick="Estrellascosto"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar2costo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascosto"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar3costo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascosto"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar4costo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascosto"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar5costo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascosto"
+                android:src="@drawable/estrellasinseleccionar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutconducta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageconducta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="EscogioOpciones"
+                android:src="@drawable/iconoconductataxista" />
+
+            <ImageView
+                android:id="@+id/imagestar1conducta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:onClick="Estrellasconducta"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar2conducta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellasconducta"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar3conducta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellasconducta"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar4conducta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellasconducta"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar5conducta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellasconducta"
+                android:src="@drawable/estrellasinseleccionar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutcondiciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imagecondiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="EscogioOpciones"
+                android:src="@drawable/iconocondicionesvehiculo" />
+
+            <ImageView
+                android:id="@+id/imagestar1condiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:onClick="Estrellascondiciones"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar2condiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascondiciones"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar3condiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascondiciones"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar4condiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascondiciones"
+                android:src="@drawable/estrellasinseleccionar" />
+
+            <ImageView
+                android:id="@+id/imagestar5condiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:onClick="Estrellascondiciones"
+                android:src="@drawable/estrellasinseleccionar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutotros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+        <TextView
+            android:id="@+id/avisootraopcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:background="@drawable/avisootra"
+            android:gravity="center"
+            android:textSize="1dp" />
+
+        <EditText
+            android:id="@+id/comentarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondotextoencuesta"
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="16dp" >
+
+            <requestFocus />
+        </EditText>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutbotonenviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/barrabajaencuesta"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/enviarencuesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="Enviar"
+            android:src="@drawable/botonenviar" />
+    </LinearLayout>
+
+</RelativeLayout>

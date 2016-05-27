@@ -1,0 +1,497 @@
+package com.cotech.taxislibres.activities;
+
+
+import java.util.ArrayList;
+
+import com.cotech.taxislibres.C;
+import com.cotech.taxislibres.EstadosUnidad;
+import com.cotech.taxislibres.R;
+import com.cotech.taxislibres.TaxisLi;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
+import android.opengl.Visibility;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class ASolicitud extends Activity {
+	
+	protected String APPNAME = "TaxisLibres";
+	protected String module = "PopUp";
+	private TaxisLi appState;
+	private Context context;
+	private EditText direccion;
+	private EditText barrio;
+	
+	private int copiaNumFrec;
+	private ImageButton efectivo;
+	private ImageButton tarjeta;
+	private ImageButton vale;
+	
+	private TextView textpago;
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.solicitud);
+		context = getApplicationContext();
+		appState = ((TaxisLi) context);
+		
+		
+		direccion = (EditText) findViewById(R.id.Direccion);
+		barrio = (EditText) findViewById(R.id.Barrio);
+		efectivo = (ImageButton) findViewById(R.id.efectivo);
+		tarjeta = (ImageButton) findViewById(R.id.tarjeta);
+		vale = (ImageButton) findViewById(R.id.vale);
+		
+		textpago=(TextView) findViewById(R.id.textpago);
+		
+		
+		
+		direccion.setText(appState.getDireccionGoogle());
+		direccion.setSelection(appState.getDireccionGoogle().length());
+		
+		barrio.setText(appState.getBarrio());
+		
+		
+		
+		
+		/*******Para no mostrar nada de Pago*************/
+		textpago.setText(" ");
+		efectivo.setVisibility(View.GONE);
+		tarjeta.setVisibility(View.GONE);
+		vale.setVisibility(View.GONE);
+		
+	}
+	
+	public void StreetView (View v){		
+		
+		try{			
+			Intent streetViewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse 
+			("google.streetview:cbll=" + appState.getLatitudUsuario() + "," +  appState.getLongitudUsuario() + "&cbp=12,222.95,,0,5.39&mz=7")); 
+			startActivity(streetViewIntent); 
+			Toast.makeText(getApplicationContext(), "Descargando La Imagen de la Direccion...", Toast.LENGTH_LONG).show();
+		}catch (Exception e){
+			Toast.makeText(getApplicationContext(), "Imagen no Disponible...", Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		}
+	}
+
+	public void GuardarFrec(View v){ 
+		
+		copiaNumFrec = appState.getNumFrecuentes();
+		Log.i(APPNAME, module + "Numero de Direcciones Almacenadas: "+ copiaNumFrec);
+		//Preguntar si ya llego al maximo de frecuentes...
+		if(copiaNumFrec < C.NUM_FRECUENTES){
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			 
+			builder.setTitle("GUARDAR DIRECCION");
+			builder.setMessage("¿Confirma que desea guardar esta direccion?");
+			builder.setPositiveButton("Aceptar", new OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					String compldireccion=direccion.getText().toString();
+					appState.setBarrio(barrio.getText().toString());
+					
+					
+					String dirAlmacenar = "B|" + appState.getNumberPhone() +  "|" + appState.getCiudadPais().toUpperCase().trim() +"|" + appState.getDireccionServicio() + "|" + compldireccion  +"|" + appState.getNombreUsuario()
+			    		+ "|" + appState.getBarrio() + "|" + "0" + "|" +  appState.getTramaGPSMap() +"\n";
+					
+					
+					
+					copiaNumFrec++;	//Se aumenta en 1 el num de frecuentes
+					appState.setNumFrecuentes(copiaNumFrec);
+					//Se debe almacenar la direccion frecuente n
+					switch(copiaNumFrec){
+						case(1):
+							appState.setDirFrec1(dirAlmacenar);
+						break;
+						
+						case(2):
+							appState.setDirFrec2(dirAlmacenar);
+						break;
+						
+						case(3):
+							appState.setDirFrec3(dirAlmacenar);
+						break;
+						
+						case(4):
+							appState.setDirFrec4(dirAlmacenar);
+						break;
+						
+						case(5):
+							appState.setDirFrec5(dirAlmacenar);
+						break;
+						
+						case(6):
+							appState.setDirFrec6(dirAlmacenar);
+						break;
+						
+						case(7):
+							appState.setDirFrec7(dirAlmacenar);
+						break;
+						
+						case(8):
+							appState.setDirFrec8(dirAlmacenar);
+						break;
+						
+						case(9):
+							appState.setDirFrec9(dirAlmacenar);
+						break;
+						
+						case(10):
+							appState.setDirFrec10(dirAlmacenar);
+						break;
+					}
+					Intent talk = new Intent();
+					talk.setAction(C.TEXT_TO_SPEECH);
+					talk.putExtra("CMD", C.HABLAR);
+					//talk.putExtra("TEXTHABLA", "DIRECCION ALMACENADA ENFRECUENTES");
+					talk.putExtra("TEXTHABLA", "DIRECCION ALMACENADA ENFAVORITOS");
+					sendBroadcast(talk);
+					Log.i(APPNAME, module + "Ahora las Direcciones Almacenadas son: "+ copiaNumFrec);
+					
+					
+				}
+			});
+    
+			builder.setNegativeButton("Cancelar", new OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					Log.i(APPNAME, module + "No guardar Direccion");
+					dialog.cancel();
+				}
+			});
+ 
+			builder.show();
+		}else{
+			//Se debe informar que llego al limite de almacenamiento de frecuentes
+			Intent talk2 = new Intent();
+			talk2.setAction(C.TEXT_TO_SPEECH);
+			talk2.putExtra("CMD", C.HABLAR);
+			//talk2.putExtra("TEXTHABLA", "NOES POSIBLE ALMACENAR COMO DIRECCION FRECUENTE, ALLEGADO ALLIMITE DE ALMACENAMIENTO");
+			talk2.putExtra("TEXTHABLA", "NOES POSIBLE ALMACENAR COMO DIRECCION FAVORITA, ALLEGADO ALLIMITE DE ALMACENAMIENTO");
+			sendBroadcast(talk2);
+		}
+	}
+
+	public void LeerFrec(View v){
+		
+		
+		final ArrayList<String> copiaFrecuentes = new ArrayList<String>();
+		copiaNumFrec = appState.getNumFrecuentes();
+		int cont=0;
+		
+		if(appState.getNumFrecuentes()==0){
+			Intent favtalk = new Intent();
+			favtalk.setAction(C.TEXT_TO_SPEECH);
+			favtalk.putExtra("CMD", C.HABLAR);
+			favtalk.putExtra("TEXTHABLA", "USTEDNO TIENE DIRECCIONES GUARDADAS");
+			sendBroadcast(favtalk);
+			Toast.makeText(getApplicationContext(), "USTED NO TIENE DIRECCIONES GUARDADAS", Toast.LENGTH_SHORT).show();
+		}else{
+			
+			Intent talk = new Intent();
+			talk.setAction(C.TEXT_TO_SPEECH);
+			talk.putExtra("CMD", C.HABLAR);
+			//talk.putExtra("TEXTHABLA", "ENTRO A LEER FRECUENTES");
+			talk.putExtra("TEXTHABLA", "ENTRO A LEER FAVORITOS");
+			sendBroadcast(talk);
+			
+			//for(int cont=0;cont< C.NUM_FRECUENTES;cont++){
+			for(cont=0;cont< copiaNumFrec;cont++){
+				switch(cont){
+					
+					case(0):
+						copiaFrecuentes.add(cont, appState.getDirFrec1());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec1()));
+					break;
+					
+					case(1):
+						copiaFrecuentes.add(cont, appState.getDirFrec2());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec2()));
+					break;
+					
+					case(2):
+						copiaFrecuentes.add(cont, appState.getDirFrec3());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec3()));
+					break;
+					
+					case(3):
+						copiaFrecuentes.add(cont, appState.getDirFrec4());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec4()));
+					break;
+					
+					case(4):
+						copiaFrecuentes.add(cont, appState.getDirFrec5());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec5()));
+					break;
+					
+					case(5):
+						copiaFrecuentes.add(cont, appState.getDirFrec6());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec6()));
+					break;
+					
+					case(6):
+						copiaFrecuentes.add(cont, appState.getDirFrec7());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec7()));
+					break;
+					
+					case(7):
+						copiaFrecuentes.add(cont, appState.getDirFrec8());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec8()));
+					break;
+					
+					case(8):
+						copiaFrecuentes.add(cont, appState.getDirFrec9());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec9()));
+					break;
+					
+					case(9):
+						copiaFrecuentes.add(cont, appState.getDirFrec10());
+						//copiaFrecuentes.add(cont, TraerSoloDireccion(appState.getDirFrec10()));
+					break;
+					
+				
+				}
+
+				copiaFrecuentes.get(cont);
+				Log.i(APPNAME, module + "INFO"+ copiaFrecuentes.get(cont)+ "este es index" + cont);
+			}
+			
+			
+			//Aca se muestra la lista
+			Dialog dialog = new Dialog(ASolicitud.this);
+			dialog.setContentView(R.layout.list);
+			
+			AlertDialog.Builder builderSingle = new AlertDialog.Builder(ASolicitud.this);
+	        //builderSingle.setIcon(R.drawable.ic_launcher);
+	        //builderSingle.setTitle("Direcciones Frecuentes");
+			builderSingle.setTitle("Direcciones Favoritas");
+	        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ASolicitud.this,android.R.layout.select_dialog_singlechoice);
+	        cont=copiaFrecuentes.size();
+			 int contadorDir=0;
+			 appState.setFlagfrecuentes(0);
+			 while(contadorDir < cont){
+				 arrayAdapter.add(TraerSoloDireccion(copiaFrecuentes.get(contadorDir)));
+				 //arrayAdapter.add(copiaFrecuentes.get(contadorDir));
+				 contadorDir++;
+			 }
+//	        arrayAdapter.add("Hardik");
+//	        arrayAdapter.add("Archit");
+//	        arrayAdapter.add("Jignesh");
+//	        arrayAdapter.add("Umang");
+//	        arrayAdapter.add("Gatti");
+	        builderSingle.setNegativeButton("Salir",new DialogInterface.OnClickListener() {
+
+	                    @Override
+	                    public void onClick(DialogInterface dialog, int which) {
+	                        dialog.dismiss();
+	                    }
+	                });
+	        builderSingle.setPositiveButton("Borrar",new DialogInterface.OnClickListener() {
+
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) {
+	            	appState.setNumFrecuentes(0);
+	            	copiaFrecuentes.clear();
+	            	arrayAdapter.clear();
+	            	
+	            	Intent borrada = new Intent();
+	            	borrada.setAction(C.TEXT_TO_SPEECH);
+	            	borrada.putExtra("CMD", C.HABLAR);
+	            	borrada.putExtra("TEXTHABLA", "DIRECCIONES BORRADAS CORRECTAMENTE");
+	    			sendBroadcast(borrada);
+	    			Toast.makeText(getApplicationContext(), "DIRECCIONES BORRADAS CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+	            	
+	                dialog.dismiss();
+	            }
+	        });
+
+	        builderSingle.setAdapter(arrayAdapter,
+	                new DialogInterface.OnClickListener() {
+
+	                    @Override
+	                    public void onClick(DialogInterface dialog, final int which1) {
+	                        String strName = arrayAdapter.getItem(which1);
+	                        AlertDialog.Builder builderInner = new AlertDialog.Builder(ASolicitud.this);
+	                        builderInner.setMessage(strName);
+	                        builderInner.setTitle("Selecciono la Direccion");
+	                        builderInner.setPositiveButton("Ok",
+	                                new DialogInterface.OnClickListener() {
+
+	                                    @Override
+	                                    public void onClick(
+	                                            DialogInterface dialog,
+	                                            int which) {
+	                                    	appState.setDireccionFrecuente(copiaFrecuentes.get(which1));
+	                                    	appState.setFlagfrecuentes(1);
+	                		    	    	
+	                                    	
+	                                    	String s = direccion.getText().toString() +"|" + barrio.getText().toString();
+	                                		
+	                                		Intent i = getIntent();
+	                                		i.putExtra("pedirTaxi", s);
+	                                		setResult(RESULT_OK, i);
+	                                		finish();
+	                    						                    						                    					
+	                                        dialog.dismiss();
+	                                        finish();
+	                                    }
+	                                });
+	                        builderInner.show();
+	                    }
+	                });
+	        builderSingle.show();
+			
+		}
+		
+	}
+	
+	public void PedirTaxi (View v){
+		Log.i(APPNAME, module + "---------------------------------------------------------");
+		
+		 AlertDialog.Builder builderInner = new AlertDialog.Builder(ASolicitud.this);
+         builderInner.setTitle("Confirmacion!!!!");
+         builderInner.setMessage("¿Confirma Solicitud de Taxi a:  "  + direccion.getText().toString() + "?");
+         builderInner.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+
+                     @Override
+                     public void onClick(DialogInterface dialog,int which) {
+                    	 String s = direccion.getText().toString() +"|" + barrio.getText().toString();
+                 		
+                 		Intent i = getIntent();
+                 		i.putExtra("pedirTaxi", s);
+                 		setResult(RESULT_OK, i);
+                 		finish();
+                     }
+                 });
+         builderInner.show();
+	   	 
+
+	}
+	
+	
+	public void RegistraVale(View v){
+		appState.setFlagRegistro("vale");
+		
+		if(appState.getVale()==1){
+			
+			AlertDialog.Builder codierror = new AlertDialog.Builder(ASolicitud.this);
+			codierror.setIcon(R.drawable.msg);
+			codierror.setTitle("PAGO!!!");
+	        // set the message to display
+			codierror.setMessage("DESEA PAGAR CON VALE?");
+
+	        // set a negative/no button and create a listener
+			codierror.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+	            // do something when the button is clicked
+	            public void onClick(DialogInterface arg0, int arg1) {
+	            	                                 
+	        		         		
+	            }
+	        });
+			codierror.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+
+	            // do something when the button is clicked
+	            public void onClick(DialogInterface arg0, int arg1) {
+	            	                                 
+	            	appState.setSepagacon("VALE");   
+	            	vale.setImageDrawable(getResources().getDrawable(R.drawable.vale));
+	            	efectivo.setImageDrawable(getResources().getDrawable(R.drawable.efectivooff));
+	            	tarjeta.setImageDrawable(getResources().getDrawable(R.drawable.tarjetaoff));
+	            	
+	            }
+	        });
+			
+
+			codierror.show();
+			
+		}else{
+			Intent intent = new Intent(ASolicitud.this, AFormPagos.class);
+			startActivity(intent);
+		}
+	}
+	
+	public void RegistraTarjeta(View v){
+		appState.setFlagRegistro("tarjeta");
+		
+		vale.setImageDrawable(getResources().getDrawable(R.drawable.valeoff));
+    	efectivo.setImageDrawable(getResources().getDrawable(R.drawable.efectivooff));
+    	tarjeta.setImageDrawable(getResources().getDrawable(R.drawable.tarjeta));
+		
+		Intent intent = new Intent(ASolicitud.this, AFormPagos.class);
+    	startActivity(intent);
+	}
+	
+	
+	public void PagoEfectivo(View v){
+		vale.setImageDrawable(getResources().getDrawable(R.drawable.valeoff));
+    	efectivo.setImageDrawable(getResources().getDrawable(R.drawable.efectivo));
+    	tarjeta.setImageDrawable(getResources().getDrawable(R.drawable.tarjetaoff));
+	}
+	public String TraerSoloDireccion(String info){
+		
+		String[] Data = info.split("\\|");
+		
+		Log.i(APPNAME, module + Data[4]);
+		return Data[4];
+	}
+	
+	
+	public void Cancelar(View v){
+		
+		Intent cancela = getIntent();
+		cancela.putExtra("cancela", "cancela");
+		setResult(RESULT_OK, cancela);
+		
+		finish();
+	}
+	
+	
+	
+	
+	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+			switch(keyCode){
+				case KeyEvent.KEYCODE_BACK:
+					Intent cancela = getIntent();
+					cancela.putExtra("cancela", "cancela");
+					setResult(RESULT_OK, cancela);
+					
+					
+					
+					finish();
+					return true;
+				
+			}
+			return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		Log.i(APPNAME, module + "Se destruye");
+		//appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+		
+		
+		finish();		
+	}
+}

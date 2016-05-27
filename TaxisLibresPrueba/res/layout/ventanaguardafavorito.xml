@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondosalirapp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textoguardafavorito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GUARDAR FAVORITO" 
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        android:layout_gravity="center"/>
+    
+    <TextView
+        android:id="@+id/textodeseaalmacenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Desea almacenar la dirección" 
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    
+    <TextView
+        android:id="@+id/textofavorita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="como favorita?" 
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        >
+        
+        <ImageButton
+            android:id="@+id/sialmacena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="SiGuardar"
+            android:src="@drawable/botonsi" />
+        
+        <ImageButton
+            android:id="@+id/noalmacena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:onClick="NoGuardar"
+            android:src="@drawable/botonno" />
+    </LinearLayout>
+
+</LinearLayout>

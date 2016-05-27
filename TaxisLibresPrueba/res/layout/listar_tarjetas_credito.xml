@@ -1,0 +1,230 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondonuevoregtarjeta" >
+
+    <TextView
+        android:id="@+id/avisotarjetas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/avisotustarjetas"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="1dp" />
+
+    <LinearLayout
+        android:id="@+id/layouttarjeta1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="150dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/infotarjeta1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/fondoinfovisa"
+            android:onClick="EscogioTarjeta"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/nombretarjeta1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:text="NOMBRETARJETA1"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textonombretarjeta1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="60dp"
+                android:text="NUMEROTARJETA1"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <RadioButton
+            android:id="@+id/radioButtonTarjeta1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioTarjeta"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layouttarjeta2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="250dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/infotarjeta2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/fondoinfovisa"
+            android:onClick="EscogioTarjeta"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/nombretarjeta2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:text="NOMBRETARJETA2"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textonombretarjeta2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="60dp"
+                android:text="NUMEROTARJETA2"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <RadioButton
+            android:id="@+id/radioButtonTarjeta2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioTarjeta"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layouttarjeta3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="350dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/infotarjeta3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/fondoinfovisa"
+            android:onClick="EscogioTarjeta"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/nombretarjeta3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:text="NOMBRETARJETA3"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textonombretarjeta3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="60dp"
+                android:text="NUMEROTARJETA2"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <RadioButton
+            android:id="@+id/radioButtonTarjeta3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioTarjeta"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutadicionar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/barrabajaencuesta"
+        android:gravity="center"
+        android:orientation="horizontal" 
+        >
+
+        <ImageButton
+            android:id="@+id/adicionartarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="AddTarjeta"
+            android:src="@drawable/botonadicionartarjeta" />
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:id="@+id/layoutborraradicionar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/barrabajaencuesta"
+        android:gravity="center"
+        android:orientation="horizontal" 
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/adicionartarjeta2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="AddTarjeta"
+            android:src="@drawable/botonadicionartarjeta" />
+        
+        <ImageButton
+            android:id="@+id/botoneliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="EliminarTarjeta"
+            android:src="@drawable/botoneliminartarjeta" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/formulario"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         >
+
+        <TextView
+            android:id="@+id/preguntaplaca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="Las Placas del Taxi son"
+        	android:textColor="#000000"
+        	android:textSize="20sp"
+       		android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/placas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/preguntaplaca"
+            android:layout_centerHorizontal="true"
+            android:text="TextView" 
+            android:textColor="#000000"
+        	android:textSize="20sp"
+        	android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layoutplacas"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/placas"
+            android:layout_marginTop="1dp" >
+
+            <ImageButton
+            android:id="@+id/bienplaca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"       
+            android:background="@null"
+            android:onClick="Placasi"         
+            android:src="@drawable/okprecionado" />
+
+            <ImageButton
+                android:id="@+id/malplaca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:onClick="Placano"
+                android:src="@drawable/malpresionado" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/preguntanombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutplacas"
+            android:layout_centerHorizontal="true"
+			android:layout_marginTop="2dp"
+            android:text="El Nombre del Conductor es"
+			android:textColor="#000000"
+        	android:textSize="20sp"
+        	android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/preguntanombre"
+            android:layout_centerHorizontal="true"
+            android:text="TextView" 
+            android:textColor="#000000"
+        	android:textSize="20sp"
+        	android:textStyle="bold" />
+        
+        <LinearLayout
+            android:id="@+id/layoutconductor"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/nombre"
+            android:layout_marginTop="1dp" >
+
+            <ImageButton
+            android:id="@+id/biennombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"       
+            android:background="@null"
+            android:onClick="Nombresi"         
+            android:src="@drawable/okprecionado" />
+
+            <ImageButton
+                android:id="@+id/malnombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:onClick="Nombreno"
+                android:src="@drawable/malpresionado" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/calificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutconductor"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:text="CALIFICACIÓN"
+			android:textColor="#000000"
+        	android:textSize="20sp"
+        	android:textStyle="bold" />
+        
+        <LinearLayout
+            android:id="@+id/layoutcalifica"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/calificacion"
+            android:layout_marginTop="1dp" >
+
+            <ImageButton
+            android:id="@+id/estrella1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"       
+            android:background="@null"
+            android:onClick="uno"         
+            android:src="@drawable/estrella" />
+
+            <ImageButton
+                android:id="@+id/estrella2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@null"
+                android:onClick="dos"
+                android:src="@drawable/estrella" />
+            
+            <ImageButton
+                android:id="@+id/estrella3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@null"
+                android:onClick="tres"
+                android:src="@drawable/estrella" />
+            
+            <ImageButton
+                android:id="@+id/estrella4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@null"
+                android:onClick="cuatro"
+                android:src="@drawable/estrella" />
+            
+            <ImageButton
+                android:id="@+id/estrella5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@null"
+                android:onClick="cinco"
+                android:src="@drawable/estrella" />
+
+        </LinearLayout>
+        
+        <TextView
+            android:id="@+id/precomentarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutcalifica"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:text="COMENTARIOS"
+			android:textColor="#000000"
+        	android:textSize="20sp"
+        	android:textStyle="bold" />
+        
+        <LinearLayout
+            android:id="@+id/layoutcomentarios"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/precomentarios"
+            android:layout_marginTop="1dp" >
+
+        <EditText
+            android:id="@+id/comentarios"
+            android:layout_width="200dp"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:textColor="#000000"
+            android:textStyle="bold" >
+
+            <requestFocus />
+        	</EditText>
+            
+
+         <ImageButton
+            android:id="@+id/vozcomen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/circle"
+            android:onClick="Habla"
+            android:src="@android:drawable/ic_btn_speak_now" />
+
+        </LinearLayout>
+        
+        <ImageButton
+        	android:id="@+id/enviar"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerHorizontal="true"
+        	android:layout_below="@+id/layoutcomentarios"
+        	android:background="@null"
+        	android:onClick="Enviar"
+        	android:src="@drawable/enviar" />
+
+    </RelativeLayout>
+
+</LinearLayout>

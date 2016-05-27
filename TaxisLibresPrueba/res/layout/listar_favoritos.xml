@@ -1,0 +1,247 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondonuevoregtarjeta" >
+
+    <TextView
+        android:id="@+id/avisotusfavoritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/avisotusdirecciones"
+        android:textSize="1dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutdireccion1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="150dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textodireccion1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/cuadrodireccionfavoritos"
+            android:maxLength="50"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="DIRECCION1"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:onClick="PresionoDireccion"
+            android:textSize="16dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDireccion1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioDireccion"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutdireccion2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="210dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textodireccion2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/cuadrodireccionfavoritos"
+            android:maxLength="50"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="DIRECCION2"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:onClick="PresionoDireccion"
+            android:textSize="16dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDireccion2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioDireccion"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutdireccion3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="270dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textodireccion3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/cuadrodireccionfavoritos"
+            android:maxLength="50"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="DIRECCION3"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:onClick="PresionoDireccion"
+            android:textSize="16dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDireccion3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioDireccion"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutdireccion4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="330dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textodireccion4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/cuadrodireccionfavoritos"
+            android:maxLength="50"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="DIRECCION4"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:onClick="PresionoDireccion"
+            android:textSize="16dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDireccion4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioDireccion"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutdireccion5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="390dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textodireccion5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/cuadrodireccionfavoritos"
+            android:maxLength="50"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="DIRECCION5"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:onClick="PresionoDireccion"
+            android:textSize="16dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDireccion5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioDireccion"
+            android:textSize="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/barraopcionesfavoritos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/barrabajaencuesta"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <ImageButton
+            android:id="@+id/seleccionarfavorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="UsarDireccion"
+            android:src="@drawable/seleccionarfav" />
+
+        <ImageButton
+            android:id="@+id/eliminarfavorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:onClick="EliminarFavorito"
+            android:src="@drawable/botoneliminartarjeta" />
+    </LinearLayout>
+
+</RelativeLayout>

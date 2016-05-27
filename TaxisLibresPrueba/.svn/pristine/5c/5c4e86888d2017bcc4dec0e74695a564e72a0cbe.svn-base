@@ -1,0 +1,218 @@
+package com.cotech.taxislibres.activities;
+
+import java.util.Calendar;
+import com.cotech.taxislibres.R;
+import com.cotech.taxislibres.TaxisLi;
+import com.rta.digipay.JsonAuth;
+
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class AFormPagos extends Activity{
+	
+	protected String APPNAME = "TaxisLibres";
+	protected String module = "FormularioPago";
+	private TaxisLi appState;
+	private Context context;
+	private View RegisterVale;
+	private View RegisterTarjeta;
+	private Button fecha;
+	
+	private EditText nombretarjeta;
+	private EditText numerotarjeta;
+	private EditText codigotarjeta;
+	private EditText usercodevale;
+	private EditText passwordvale;
+	
+	DatePickerDialog mDatePicker;
+	private int day;
+	private int month;
+	private int year;
+	
+
+	private ProgressBar pensando;
+	 Handler Handler = new Handler();
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.formupagos);
+		context = getApplicationContext();
+		appState = ((TaxisLi) context);
+		
+		RegisterVale = findViewById(R.id.layoutRegisterVale);
+		RegisterTarjeta = findViewById(R.id.layoutRegisterTarjeta);
+		
+		nombretarjeta= (EditText) findViewById(R.id.nombretarjeta);
+		numerotarjeta= (EditText) findViewById(R.id.numerotarjeta);
+		codigotarjeta= (EditText) findViewById(R.id.codigoseguridad);
+		
+		usercodevale= (EditText) findViewById(R.id.usercodevale);
+		passwordvale= (EditText) findViewById(R.id.passwordvale);
+		
+		pensando= (ProgressBar) findViewById(R.id.progress);
+		
+		fecha=(Button) findViewById(R.id.fechaVencimieto);
+		
+		
+		
+		
+		if(appState.getFlagRegistro().equals("vale")){
+			RegisterVale.setVisibility(View.VISIBLE);
+			RegisterTarjeta.setVisibility(View.GONE);
+		}else if(appState.getFlagRegistro().equals("tarjeta")){
+			RegisterVale.setVisibility(View.GONE);
+			RegisterTarjeta.setVisibility(View.VISIBLE);
+		}
+		
+		/****************************************************************************/		
+		/******************BOTON DE LA FECHA DE VENCIMIENTO *************************/
+		/****************************************************************************/	
+		fecha.setOnClickListener(new View.OnClickListener() {		
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View v) {
+				showDialog(0);
+			}
+		});
+		/****************************************************************************/	
+		
+		pensando.setVisibility(View.INVISIBLE);
+	}
+	
+	
+	@Override
+	 @Deprecated
+	 protected Dialog onCreateDialog(int id) {
+	  return new DatePickerDialog(this, datePickerListener, year, month, day);
+	 }
+
+	 private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+	  public void onDateSet(DatePicker view, int selectedYear,
+	    int selectedMonth, int selectedDay) {
+	   fecha.setText(selectedDay + " / " + (selectedMonth + 1) + " / "
+	     + selectedYear);
+	  }
+	 };
+	
+	
+	public void GuardarTC(View v){
+		String datosTC = nombretarjeta.getText().toString() + "|" + numerotarjeta.getText().toString() + "|" + codigotarjeta.getText().toString();
+		appState.setDatosTarjeta(datosTC);
+	}
+	
+	public void RegistroVale(View v){
+		//ACA HACER LA COMICACION CON DIGIPAY
+		pensando.setVisibility(View.VISIBLE);
+		
+
+		Handler.postDelayed(new Runnable(){	
+            public void run(){
+
+				try{
+					
+					String codigovale= usercodevale.getText().toString();
+					String passworvale= passwordvale.getText().toString();
+					//Object Resultado = JsonAuth.initialData("91716", "1234");
+					//if(JsonAuth.initialData("3935", "1234").toString() != null){
+					
+					if(JsonAuth.initialData(codigovale, passworvale).toString() != null){
+						appState.setVale(1);  //ESTO ES PARA SABER QUE YA REGISTRO EL VALE
+						Log.i(APPNAME, module + "La Respuesta de la Validacien es: OK" );
+						
+						MuestraDialog();
+					}else{
+						appState.setVale(0);  //ESTO ES PARA SABER QUE YA REGISTRO EL VALE
+						Log.i(APPNAME, module + "La Respuesta de la Validacien es: null" );
+						pensando.setVisibility(View.INVISIBLE);
+						MuestraDialog();
+						
+					}
+					
+				}catch (Exception e){
+					appState.setVale(0); 
+					Log.i(APPNAME, module + "La Respuesta de la Validacien es: null" );
+					pensando.setVisibility(View.INVISIBLE);
+					MuestraDialog();
+					e.printStackTrace();
+				}
+            };
+        }, 5000);		
+
+	}
+	
+	
+	
+	public void MuestraDialog(){
+		
+//		handler.post(new Runnable() {
+//            public void run() {			
+		
+		
+			try{
+				if(appState.getVale()==0){
+					AlertDialog.Builder codierror = new AlertDialog.Builder(AFormPagos.this);
+					//codierror.setIcon(R.drawable.ic_launcher);
+					codierror.setTitle("RESPUESTA DE REGISTRO!!!");
+			        // set the message to display
+					codierror.setMessage("POR FAVOR VERIFIQUE PASSWORD Y CONTRASEÑA!!!");
+			
+			        // set a negative/no button and create a listener
+					codierror.setNegativeButton("ACEPTAR", new DialogInterface.OnClickListener() {
+			
+			            // do something when the button is clicked
+			            public void onClick(DialogInterface arg0, int arg1) {
+			            	                                
+			        		         		
+			            }
+			        });
+					
+					codierror.show();
+				}else if(appState.getVale()==1){
+					AlertDialog.Builder codierror = new AlertDialog.Builder(AFormPagos.this);
+					codierror.setIcon(R.drawable.msg);
+					codierror.setTitle("RESPUESTA DE REGISTRO!!!");
+			        // set the message to display
+					codierror.setMessage("REGISTRADO CORRECTAMENTE...");
+		
+			        // set a negative/no button and create a listener
+					codierror.setNegativeButton("ACEPTAR", new DialogInterface.OnClickListener() {
+		
+			            // do something when the button is clicked
+			            public void onClick(DialogInterface arg0, int arg1) {
+			            	  finish();                               
+			        		         		
+			            }
+			        });
+					
+					codierror.show();
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+//            }
+//        });
+	}
+	
+	public void Cancelar(View v){
+		finish();
+	}
+
+}

@@ -1,0 +1,889 @@
+package com.cotech.taxislibres;
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
+public class TaxisLi extends Application{
+	
+	protected String appName = "TaxisLi";
+	protected String module = "TaxisLi";
+	
+
+	private SharedPreferences prefs;
+	private SharedPreferences.Editor editor;	
+	private EstadosUnidad estadoUnidad;		
+	private String idServicio = "0";
+	private String codciudad = "0";
+	private String codzona = "0";
+	private String direccionServicio= "0";
+	private String direccionUsuario= "0";
+	
+	private String nombreUsuario="0";
+	private String nombreTaxista="0";
+	private String correoUsuario="0";
+	private String barrio= "0";
+	private String placa = "0";
+	private String pinMovil= "0";
+	private String LatitudMovil;
+	private String LongitudMovil;
+
+	
+	private String numberPhone= "0";	
+	private int flagGps;	
+	private int contador=0;
+		
+	private int flagsolicitud;
+	private int flagAnunciotaxi;
+	private int metros;
+	
+	private String TramaGPSMap;
+
+
+	
+	private int formuplaca=4;
+	private int formunombre=4;
+	private int formucalificacion=10;
+	private String formucomentario;
+	private String formutotal;
+	private int inicializar;
+	private String trama;
+	private String resultado;
+	private int AnchoPantalla;
+	private int AltoPantalla;
+	private int Densidad;
+			
+	private int Anchsolicitar;
+	private int Altosolicitar;
+	
+	private int Anchocancelar;
+	private int Altocancelar;
+	
+	private int Anchocalificar;
+	private int Altocalificar;
+	
+	private int Anchoenviar;
+	private int Altoenviar;
+	
+	private int Anchoentrar;
+	private int Altoentrar;
+	
+	private String direccionGoogle= "0";
+	private int flagActDatos;
+	private int flagcancelado;
+	/****29Nov/2013**************/
+	private int flaginvisible;
+	private String Serviciosave;
+	private String MsgTaxista;
+	private int flagconexion;
+	/*******20 Diciembre******/
+	private int flagrecordardireccion;
+	
+	private int flagCerrarMapa;
+	
+	private int numFrecuentes;
+	
+	private String dirFrec1;
+	private String dirFrec2;
+	private String dirFrec3;
+	private String dirFrec4;
+	private String dirFrec5;
+	private String dirFrec6;
+	private String dirFrec7;
+	private String dirFrec8;
+	private String dirFrec9;
+	private String dirFrec10;
+	
+	
+	/*****17-03-14**********/
+	private double LatitudUsuario;
+	private double LongitudUsuario;
+	private String ciudadPais;
+	private int flagfrecuentes;
+	private String direccionFrecuente;
+	/*****18-03-14**********/
+	private String flagRegistro;
+	private String datosTarjeta;
+	/*****19-03-14**********/
+	private int vale;
+	private String Sepagacon;
+	private String IdModiPayConductor;
+	private String ValorPagar;
+	/*****19-03-14**********/
+	private int flagConfPago;
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		try {
+			Context context = getBaseContext();
+			prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			editor = prefs.edit();
+		} catch (Exception e) {
+			Log.e(appName, module + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public EstadosUnidad getEstadoUnidad() {
+		String estado = prefs.getString("estadoUnidad", "LIBRE");
+		estadoUnidad = EstadosUnidad.valueOf(estado);
+		return estadoUnidad;
+	}
+
+	public void setEstadoUnidad(EstadosUnidad estadoUnidad) {
+		editor.putString("estadoUnidad", estadoUnidad.name());
+		editor.commit();
+		this.estadoUnidad = estadoUnidad;
+	}
+	
+	public String getIdServicio() {
+		return idServicio;
+	}
+
+	public void setIdServicio(String _idServicio) {
+		editor.putString("idServicio", _idServicio);
+		editor.commit();	
+		idServicio = _idServicio;
+	}
+	
+	public String getCodciudad() {
+		return codciudad;
+	}
+
+	public void setCodciudad(String _codciudad) {
+		editor.putString("codciudad", _codciudad);
+		editor.commit();
+		codciudad = _codciudad;
+	}
+	
+	public String getCodzona() {
+		return codzona;
+	}
+
+	public void setCodzona(String _codzona) {
+		editor.putString("codzona", _codzona);
+		editor.commit();
+		codzona = _codzona;
+	}
+	
+	public String getDireccionServicio() {
+		return direccionServicio;
+	}
+
+	public void setDireccionServicio(String _direccionServicio) {
+		editor.putString("direccionServicio", _direccionServicio);
+		editor.commit();		
+		direccionServicio = _direccionServicio;
+	}
+	
+	public String getDireccionUsuario() {
+		return direccionUsuario;
+	}
+
+	public void setDireccionUsuario(String direccionUsuario) {
+		this.direccionUsuario = direccionUsuario;
+	}
+	
+	public String getNombreUsuario() {
+		nombreUsuario = prefs.getString("nombreUsuario", "Jaime Lombana");
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String _nombreUsuario) {
+		editor.putString("nombreUsuario", _nombreUsuario);
+		editor.commit();
+		nombreUsuario = _nombreUsuario;
+	}
+	
+	public String getCorreoUsuario() {
+		correoUsuario = prefs.getString("correoUsuario", "alombana24");
+		return correoUsuario;
+	}
+
+	public void setCorreoUsuario(String _correoUsuario) {
+		editor.putString("correoUsuario", _correoUsuario);
+		editor.commit();
+		nombreUsuario = _correoUsuario;
+	}
+	
+	public String getNombreTaxista() {
+		return nombreTaxista;
+	}
+
+	public void setNombreTaxista(String nombreTaxista) {
+		this.nombreTaxista = nombreTaxista;
+	}
+	
+	public String getBarrio() {
+		barrio =prefs.getString("barrio", "Buscando!!!");
+		return barrio;
+	}
+
+	public void setBarrio(String _barrio) {
+		editor.putString("barrio", _barrio);
+		editor.commit();
+		barrio = _barrio;
+	}
+	
+	
+	
+	
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+	
+	public String getPinMovil() {
+		return pinMovil;
+	}
+
+	public void setPinMovil(String pinMovil) {
+		this.pinMovil = pinMovil;
+	}
+
+	public String getLatitudMovil() {
+		return LatitudMovil;
+	}
+
+	public void setLatitudMovil(String latitudMovil) {
+		LatitudMovil = latitudMovil;
+	}
+
+	public String getLongitudMovil() {
+		return LongitudMovil;
+	}
+
+	public void setLongitudMovil(String longitudMovil) {
+		LongitudMovil = longitudMovil;
+	}
+	
+	public String getNumberPhone() {
+		numberPhone = prefs.getString("numberPhone", "3111111");
+		return numberPhone;
+	}
+
+	public void setNumberPhone(String _numberPhone) {
+		editor.putString("numberPhone", _numberPhone);
+		editor.commit();
+		numberPhone = _numberPhone;
+	}
+	
+	public int getFlagGps() {
+		return flagGps;
+	}
+
+	public void setFlagGps(int flagGps) {
+		this.flagGps = flagGps;
+	}
+
+
+	public int getContador() {
+		return contador;
+	}
+
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
+	
+
+	public int getFlagsolicitud() {
+		return flagsolicitud;
+	}
+
+	public void setFlagsolicitud(int flagsolicitud) {
+		this.flagsolicitud = flagsolicitud;
+	}
+
+	public int getFlagAnunciotaxi() {
+		return flagAnunciotaxi;
+	}
+
+	public void setFlagAnunciotaxi(int flagAnunciotaxi) {
+		this.flagAnunciotaxi = flagAnunciotaxi;
+	}
+
+	public int getMetros() {
+		return metros;
+	}
+
+	public void setMetros(int metros) {
+		this.metros = metros;
+	}
+
+	public String getTramaGPSMap() {
+		return TramaGPSMap;
+	}
+
+	public void setTramaGPSMap(String tramaGPSMap) {
+		TramaGPSMap = tramaGPSMap;
+	}
+	
+	public int getFormuplaca() {
+		return formuplaca;
+	}
+
+	public void setFormuplaca(int formuplaca) {
+		this.formuplaca = formuplaca;
+	}
+
+	public int getFormucalificacion() {
+		return formucalificacion;
+	}
+
+	public void setFormucalificacion(int formucalificacion) {
+		this.formucalificacion = formucalificacion;
+	}
+
+	public int getFormunombre() {
+		return formunombre;
+	}
+
+	public void setFormunombre(int formunombre) {
+		this.formunombre = formunombre;
+	}
+
+	public String getFormucomentario() {
+		return formucomentario;
+	}
+
+	public void setFormucomentario(String formucomentario) {
+		this.formucomentario = formucomentario;
+	}
+
+	public String getFormutotal() {
+		return formutotal;
+	}
+
+	public void setFormutotal(String formutotal) {
+		this.formutotal = formutotal;
+	}
+
+	public int getInicializar() {
+		return inicializar;
+	}
+
+	public void setInicializar(int inicializar) {
+		this.inicializar = inicializar;
+	}
+
+
+	public String getTrama() {
+		return trama;
+	}
+
+
+	public void setTrama(String trama) {
+		this.trama = trama;
+	}
+
+
+	public String getResultado() {
+		return resultado;
+	}
+
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
+
+
+	public int getAnchoPantalla() {
+		return AnchoPantalla;
+	}
+
+
+	public void setAnchoPantalla(int anchoPantalla) {
+		AnchoPantalla = anchoPantalla;
+	}
+
+
+	public int getAltoPantalla() {
+		return AltoPantalla;
+	}
+
+
+	public void setAltoPantalla(int altoPantalla) {
+		AltoPantalla = altoPantalla;
+	}
+
+
+	public int getDensidad() {
+		return Densidad;
+	}
+
+
+	public void setDensidad(int densidad) {
+		Densidad = densidad;
+	}
+
+
+	public int getAnchsolicitar() {
+		Anchsolicitar= prefs.getInt("Anchsolicitar", 1);
+		return Anchsolicitar;
+	}
+
+
+	public void setAnchsolicitar(int _anchsolicitar) {
+		editor.putInt("anchsolicitar", _anchsolicitar);
+		editor.commit();
+		this.Anchsolicitar = _anchsolicitar;
+						
+	}
+
+
+	public int getAltosolicitar() {
+		Altosolicitar= prefs.getInt("Altosolicitar", 1);
+		return Altosolicitar;
+	}
+
+
+	public void setAltosolicitar(int _altosolicitar) {
+		editor.putInt("altosolicitar", _altosolicitar);
+		editor.commit();
+		this.Altosolicitar = _altosolicitar;
+		
+	}
+
+
+	public int getAltocancelar() {
+		return Altocancelar;
+	}
+
+
+	public void setAltocancelar(int altocancelar) {
+		Altocancelar = altocancelar;
+	}
+
+
+	public int getAnchocancelar() {
+		return Anchocancelar;
+	}
+
+
+	public void setAnchocancelar(int anchocancelar) {
+		Anchocancelar = anchocancelar;
+	}
+
+
+	public int getAltocalificar() {
+		return Altocalificar;
+	}
+
+
+	public void setAltocalificar(int altocalificar) {
+		Altocalificar = altocalificar;
+	}
+
+
+	public int getAnchocalificar() {
+		return Anchocalificar;
+	}
+
+
+	public void setAnchocalificar(int anchocalificar) {
+		Anchocalificar = anchocalificar;
+	}
+
+
+	public int getAnchoenviar() {
+		return Anchoenviar;
+	}
+
+
+	public void setAnchoenviar(int anchoenviar) {
+		Anchoenviar = anchoenviar;
+	}
+
+
+	public int getAltoenviar() {
+		return Altoenviar;
+	}
+
+
+	public void setAltoenviar(int altoenviar) {
+		Altoenviar = altoenviar;
+	}
+
+
+	public int getAnchoentrar() {
+		return Anchoentrar;
+	}
+
+
+	public void setAnchoentrar(int anchoentrar) {
+		Anchoentrar = anchoentrar;
+	}
+
+	public int getAltoentrar() {
+		return Altoentrar;
+	}
+
+	public void setAltoentrar(int altoentrar) {
+		Altoentrar = altoentrar;
+	}
+
+
+	public String getDireccionGoogle() {
+		return direccionGoogle;
+	}
+
+
+	public void setDireccionGoogle(String _direccionGoogle) {
+		editor.putString("direccionGoogle", _direccionGoogle);
+		editor.commit();
+		direccionGoogle = _direccionGoogle;
+	}
+
+
+	public int getFlagActDatos() {
+		return flagActDatos;
+	}
+
+
+	public void setFlagActDatos(int flagActDatos) {
+		this.flagActDatos = flagActDatos;
+	}
+
+
+	public int getFlagcancelado() {
+		return flagcancelado;
+	}
+
+
+	public void setFlagcancelado(int flagcancelado) {
+		this.flagcancelado = flagcancelado;
+	}
+
+
+	public int getFlaginvisible() {
+		return flaginvisible;
+	}
+
+
+	public void setFlaginvisible(int flaginvisible) {
+		this.flaginvisible = flaginvisible;
+	}
+
+
+	public String getServiciosave() {
+		return Serviciosave;
+	}
+
+
+	public void setServiciosave(String serviciosave) {
+		Serviciosave = serviciosave;
+	}
+
+
+	public String getMsgTaxista() {
+		return MsgTaxista;
+	}
+
+
+	public void setMsgTaxista(String msgTaxista) {
+		MsgTaxista = msgTaxista;
+	}
+
+
+	public int getFlagconexion() {
+		return flagconexion;
+	}
+
+
+	public void setFlagconexion(int flagconexion) {
+		this.flagconexion = flagconexion;
+	}
+
+
+	public int getFlagrecordardireccion() {
+		return flagrecordardireccion;
+	}
+
+
+	public void setFlagrecordardireccion(int flagrecordardireccion) {
+		this.flagrecordardireccion = flagrecordardireccion;
+	}
+	
+	public int getFlagCerrarMapa() {
+		return flagCerrarMapa;
+	}
+
+
+	public void setFlagCerrarMapa(int flagCerrarMapa) {
+		this.flagCerrarMapa = flagCerrarMapa;
+	}
+
+//*********************************************************************
+//	Para Direcciones Frecuentes
+//*********************************************************************
+	
+	public int getNumFrecuentes() {
+		numFrecuentes = prefs.getInt("numFrecuentes", 0);
+		return numFrecuentes;
+	}
+
+
+	public void setNumFrecuentes(int _numFrecuentes) {
+		editor.putInt("numFrecuentes", _numFrecuentes);
+		editor.commit();	
+		this.numFrecuentes = _numFrecuentes;
+	}
+
+
+	public String getDirFrec1() {
+		dirFrec1 = prefs.getString("dirFrec1","");
+		return dirFrec1;
+	}
+
+
+	public void setDirFrec1(String _dirFrec1) {
+		editor.putString("dirFrec1", _dirFrec1);
+		editor.commit();
+		this.dirFrec1 = _dirFrec1;
+	}
+
+
+	public String getDirFrec2() {
+		dirFrec2 = prefs.getString("dirFrec2","");
+		return dirFrec2;
+	}
+
+
+	public void setDirFrec2(String _dirFrec2) {
+		editor.putString("dirFrec2", _dirFrec2);
+		editor.commit();
+		this.dirFrec2 = _dirFrec2;
+	}
+
+
+	public String getDirFrec3() {
+		dirFrec3 = prefs.getString("dirFrec3","");
+		return dirFrec3;
+	}
+
+
+	public void setDirFrec3(String _dirFrec3) {
+		editor.putString("dirFrec3", _dirFrec3);
+		editor.commit();
+		this.dirFrec3 = _dirFrec3;
+	}
+
+
+	public String getDirFrec4() {
+		dirFrec4 = prefs.getString("dirFrec4","");
+		return dirFrec4;
+	}
+
+
+	public void setDirFrec4(String _dirFrec4) {
+		editor.putString("dirFrec4", _dirFrec4);
+		editor.commit();
+		this.dirFrec4 = _dirFrec4;
+	}
+
+
+	public String getDirFrec5() {
+		dirFrec5 = prefs.getString("dirFrec5","");
+		return dirFrec5;
+	}
+
+
+	public void setDirFrec5(String _dirFrec5) {
+		editor.putString("dirFrec5", _dirFrec5);
+		editor.commit();
+		this.dirFrec5 = _dirFrec5;
+	}
+
+
+	public String getDirFrec6() {
+		dirFrec6 = prefs.getString("dirFrec6","");
+		return dirFrec6;
+	}
+
+
+	public void setDirFrec6(String _dirFrec6) {
+		editor.putString("dirFrec6", _dirFrec6);
+		editor.commit();
+		this.dirFrec6 = _dirFrec6;
+	}
+
+
+	public String getDirFrec7() {
+		dirFrec7 = prefs.getString("dirFrec7","");
+		return dirFrec7;
+	}
+
+
+	public void setDirFrec7(String _dirFrec7) {
+		editor.putString("dirFrec7", _dirFrec7);
+		editor.commit();
+		this.dirFrec7 = _dirFrec7;
+	}
+
+
+	public String getDirFrec8() {
+		dirFrec8 = prefs.getString("dirFrec8","");
+		return dirFrec8;
+	}
+
+
+	public void setDirFrec8(String _dirFrec8) {
+		editor.putString("dirFrec8", _dirFrec8);
+		editor.commit();
+		this.dirFrec8 = _dirFrec8;
+	}
+
+
+	public String getDirFrec9() {
+		dirFrec9 = prefs.getString("dirFrec9","");
+		return dirFrec9;
+	}
+
+
+	public void setDirFrec9(String _dirFrec9) {
+		editor.putString("dirFrec9", _dirFrec9);
+		editor.commit();
+		this.dirFrec9 = _dirFrec9;
+	}
+
+
+	public String getDirFrec10() {
+		dirFrec10 = prefs.getString("dirFrec10","");
+		return dirFrec10;
+	}
+
+
+	public void setDirFrec10(String _dirFrec10) {
+		editor.putString("dirFrec10", _dirFrec10);
+		editor.commit();
+		this.dirFrec10 = _dirFrec10;
+	}
+
+
+	public double getLatitudUsuario() {
+		return LatitudUsuario;
+	}
+
+
+	public void setLatitudUsuario(double latitudUsuario) {
+		LatitudUsuario = latitudUsuario;
+	}
+
+
+	public double getLongitudUsuario() {
+		return LongitudUsuario;
+	}
+
+
+	public void setLongitudUsuario(double longitudUsuario) {
+		LongitudUsuario = longitudUsuario;
+	}
+
+
+	public String getCiudadPais() {
+		return ciudadPais;
+	}
+
+
+	public void setCiudadPais(String ciudadPais) {
+		this.ciudadPais = ciudadPais;
+	}
+
+
+	public int getFlagfrecuentes() {
+		return flagfrecuentes;
+	}
+
+
+	public void setFlagfrecuentes(int flagfrecuentes) {
+		this.flagfrecuentes = flagfrecuentes;
+	}
+
+
+	public String getDireccionFrecuente() {
+		return direccionFrecuente;
+	}
+
+
+	public void setDireccionFrecuente(String direccionFrecuente) {
+		this.direccionFrecuente = direccionFrecuente;
+	}
+
+
+	public String getFlagRegistro() {
+		return flagRegistro;
+	}
+
+
+	public void setFlagRegistro(String flagRegistro) {
+		this.flagRegistro = flagRegistro;
+	}
+
+
+	public String getDatosTarjeta() {
+		return datosTarjeta;
+	}
+
+
+	public void setDatosTarjeta(String datosTarjeta) {
+		this.datosTarjeta = datosTarjeta;
+	}
+
+
+	public int getVale() {
+		return vale;
+	}
+
+
+	public void setVale(int vale) {
+		this.vale = vale;
+	}
+
+
+	public String getSepagacon() {
+		return Sepagacon;
+	}
+
+
+	public void setSepagacon(String sepagacon) {
+		Sepagacon = sepagacon;
+	}
+
+
+	public String getIdModiPayConductor() {
+		return IdModiPayConductor;
+	}
+
+
+	public void setIdModiPayConductor(String idModiPayConductor) {
+		IdModiPayConductor = idModiPayConductor;
+	}
+
+
+	public String getValorPagar() {
+		return ValorPagar;
+	}
+
+
+	public void setValorPagar(String valorPagar) {
+		ValorPagar = valorPagar;
+	}
+
+
+	public int getFlagConfPago() {
+		return flagConfPago;
+	}
+
+
+	public void setFlagConfPago(int flagConfPago) {
+		this.flagConfPago = flagConfPago;
+	}
+
+
+}

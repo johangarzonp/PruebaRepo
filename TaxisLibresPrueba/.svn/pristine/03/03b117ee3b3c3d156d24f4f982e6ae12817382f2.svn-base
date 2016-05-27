@@ -1,0 +1,5 @@
+package com.cotech.taxislibres;
+
+public enum EstadosUnidad {
+	LIBRE, SOLICITUD_TAXI, TAXI_ASIGNADO, ENCUESTA, ESPERA, CANCELADO, ESPERADEPAGO;
+}

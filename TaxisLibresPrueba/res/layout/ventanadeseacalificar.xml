@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondosalirapp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textodeseacalificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CALIFICAR SERVICIO" 
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        android:layout_gravity="center"/>
+    
+    <TextView
+        android:id="@+id/textodeseacalificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Al Calificar Finaliza el Servicio" 
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    
+    <TextView
+        android:id="@+id/textodeseacalificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="esta Seguro?" 
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        >
+        
+        <ImageButton
+            android:id="@+id/sicalificarservicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="CalificarServicio"
+            android:src="@drawable/botonsi" />
+        
+        <ImageButton
+            android:id="@+id/nocalificarservicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:onClick="NoCalificarServicio"
+            android:src="@drawable/botonno" />
+    </LinearLayout>
+
+</LinearLayout>

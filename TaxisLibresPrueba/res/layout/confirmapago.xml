@@ -1,0 +1,191 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".PaymentActivity" >
+
+    <LinearLayout
+        android:id="@+id/confirmaPago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/TextView_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="  CONFIRMAR PAGO CON VALE"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffffff"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+    
+	<LinearLayout
+        android:id="@+id/confpago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:orientation="vertical" >
+	    
+	    <RelativeLayout
+	        android:id="@+id/basic_info_driver"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:paddingLeft="15dp" >
+
+	        <TextView
+	            android:id="@+id/textView3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@+id/textView2"
+	            android:layout_alignBottom="@+id/textView2"
+	            android:layout_marginLeft="15dp"
+	            android:layout_toRightOf="@+id/textDriverVehicle"
+	            android:text="Nombre" />
+
+	        <TextView
+	            android:id="@+id/nombretaxista"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@+id/placataxi"
+	            android:layout_alignBottom="@+id/placataxi"
+	            android:layout_alignLeft="@+id/textView3"
+	            android:text="Taxis Libres"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#000" />
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginRight="52dp"
+	            android:text="@string/lbl_driver_vehicle" />
+
+	        <TextView
+	            android:id="@+id/placataxi"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView2"
+	            android:layout_below="@+id/textView2"
+	            android:text="@string/sample_vehicle"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#000" />
+
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:id="@+id/Layout_DistanceTime"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp" >
+	        <TextView
+	            android:id="@+id/textView4"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:text="Valor a Pagar" />
+
+	        <TextView
+	            android:id="@+id/valorpagar"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView4"
+	            android:layout_below="@+id/textView4"
+	            android:text="$0"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#000" />
+
+	        <TextView
+	            android:id="@+id/TextView01"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView4"
+	            android:layout_marginLeft="5dp"
+	            android:layout_toRightOf="@+id/TextView_leftDistance"
+	            android:text="@string/separator"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#000"
+	            android:visibility="invisible" />
+
+	        <TextView
+	            android:id="@+id/textView5"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:text="@string/lbl_key_service" />
+
+	        <TextView
+	            android:id="@+id/claveservicio"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/textView5"
+	            android:text="@string/sample_key"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#000"
+	            android:textStyle="bold" />
+
+	    </RelativeLayout>
+	    <RelativeLayout
+	        android:id="@+id/relativeLayout1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp" >
+	
+	        <TextView
+	            android:id="@+id/TextView02"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="               Ingrese su contraseña para el pago"
+	            android:textStyle="bold"
+	            android:textColor="#000" />
+
+	        <EditText
+	            android:id="@+id/contrasenapago"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/TextView02"
+	            android:layout_centerHorizontal="true"
+	            android:ems="10"
+	            android:hint="@string/lbl_payment_password" />
+
+	    </RelativeLayout>
+	    <Button
+	        android:id="@+id/Button_confirmPayment"
+	        style="@style/ButtonText"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Confirmar Pago" 
+	        android:textColor="#000"
+	        android:onClick="ConfirmaPago"/>
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:id="@+id/layoutProgressBar"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="#ffffffff"
+	    android:gravity="center"
+	    android:orientation="vertical"
+	    android:visibility="gone" >
+
+		<ProgressBar
+		    android:id="@+id/progressBar1"
+		    style="?android:attr/progressBarStyleLarge"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:indeterminate="true" />
+
+	</LinearLayout>
+    
+</LinearLayout>

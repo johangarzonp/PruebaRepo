@@ -1,0 +1,173 @@
+<com.cotech.taxislibres.view.viewgroup.FlyOutContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <LinearLayout
+	    android:id="@+id/slider"
+      	android:layout_width="200dp"
+      	android:layout_height="match_parent"
+      	android:layout_alignParentLeft="true"
+      	android:layout_centerInParent="true"  
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
+   		
+        <Button
+    		 android:layout_width="match_parent"
+   			 android:layout_height="wrap_content"
+   			 android:onClick="ActualizarDatos"
+   			 android:text="Actualizar Datos" 
+   			 android:textStyle="bold"/>
+        
+        <Button
+    		 android:layout_width="match_parent"
+   			 android:layout_height="wrap_content"
+   			 android:onClick="CompartirApp"
+   			 android:text="Compartir App" 
+   			 android:textStyle="bold"/>
+        
+	    <Button
+    		 android:layout_width="match_parent"
+   			 android:layout_height="wrap_content"
+   			 android:onClick="SendMsgTaxista"
+   			 android:text="Mensaje a Taxista"
+   			 android:textStyle="bold" />
+	    
+	     <Button
+    		 android:layout_width="match_parent"
+   			 android:layout_height="wrap_content"
+   			 android:onClick="SendMsgCentral"
+   			 android:text="Mensaje al Contac Center" 
+   			 android:textStyle="bold"/>
+	     
+	     <Button
+    		 android:layout_width="match_parent"
+   			 android:layout_height="wrap_content"
+   			 android:onClick="HistoricoServicios"
+   			 android:text="Historico de Servicios" 
+   			 android:textStyle="bold"/>
+	     
+	     <Button
+    		 android:layout_width="match_parent"
+   			 android:layout_height="wrap_content"
+   			 android:onClick="BorrarHistorico"
+   			 android:text="Borrar Historico" 
+   			 android:textStyle="bold"/>
+	      
+	</LinearLayout>
+	
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    tools:context=".AMap"
+	    android:onClick="MenuLeft" >
+	    
+	    <fragment
+	        android:id="@+id/map"
+	        android:layout_width="400dp"
+	        android:layout_height="420dp"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentTop="true"
+	        class="com.google.android.gms.maps.SupportMapFragment" />
+	    
+	     <ImageView
+	        android:id="@+id/yo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:src="@drawable/iconousuario" />
+	    <!--  
+	    <ImageView 
+	        android:id="@+id/imageView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:src="@drawable/yo1"/>
+		-->
+	    <ImageButton
+	        android:id="@+id/calificar"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:background="@null"
+	        android:onClick="Calificar"
+	        android:src="@drawable/nuevobotoncalificar"
+	        android:visibility="invisible" />
+	
+	    <ImageButton
+	        android:id="@+id/cancelar"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginBottom="20dp"
+	        android:layout_marginLeft="20dp"
+	        android:background="@null"
+	        android:onClick="Cancela"
+	        android:src="@drawable/botoncancelarservicio"
+	        android:visibility="invisible" />
+	
+	    <ImageButton
+	        android:id="@+id/imageButton1"
+	        android:layout_width="45dp"
+	        android:layout_height="45dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="9dp"
+	        android:layout_marginTop="12dp"
+	        android:onClick="cambioMapa"
+	        android:src="@android:drawable/ic_dialog_map" />
+
+	    <ImageButton
+	        android:id="@+id/solicitar"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginBottom="14dp"
+	        android:layout_marginLeft="20dp"
+	        android:background="@null"
+	        android:onClick="Solicita"
+	        android:src="@drawable/nvobotonsolicitar" />
+
+	    <LinearLayout
+	        android:id="@+id/avisomarket"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/yo"
+	        android:layout_centerHorizontal="true"
+	        android:background="#FFFFFF"
+	        android:orientation="vertical" >
+
+	        <TextView
+	            android:id="@+id/usuario"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerInParent="true"
+       			android:layout_gravity="center"
+		        android:shadowColor="#333333" android:shadowDx="2.0"
+		        android:shadowDy="2.0" android:shadowRadius="3.0"
+		        android:textColor="#800000"
+		        android:textStyle="bold"  />
+
+	      
+
+	        <TextView
+	            android:id="@+id/direccionusuario"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Buscando..."
+	            android:layout_centerInParent="true"
+		        android:layout_gravity="center"
+		        android:textColor="#000000"
+		        android:inputType="textCapSentences"
+		        android:textStyle="bold" />
+	    </LinearLayout>
+	    
+	   </RelativeLayout> 
+    
+    
+</com.cotech.taxislibres.view.viewgroup.FlyOutContainer>
+    

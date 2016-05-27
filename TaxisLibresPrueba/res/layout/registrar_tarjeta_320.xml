@@ -1,0 +1,287 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondonuevoregtarjeta" >
+
+    <LinearLayout
+        android:id="@+id/layoutpartearribaencuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textoregistrotarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="75dp"
+            android:background="@drawable/avisoregistrotarjeta"
+            android:textSize="1dp" />
+
+        <TextView
+            android:id="@+id/textonombretitular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/avisonombretajeta"
+            android:textSize="1dp" />
+
+        <EditText
+            android:id="@+id/nombretarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/fondoingresonombretarjeta"
+            android:capitalize="characters"
+            android:hint="NOMBRE"
+            android:inputType="textCapCharacters"
+            android:textAllCaps="true"
+            android:textSize="16dp" 
+            android:maxLength="50"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/textonumerotarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/avisotarjetanumero"
+            android:textSize="1dp" />
+
+        <EditText
+            android:id="@+id/numerotarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/fondoingresonombretarjeta"
+            android:hint="1234 1234 1234 1234"
+            android:inputType="number"
+            android:maxLength="16"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:numeric="integer"
+            android:onClick="CheckNumeroTarjeta"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutbotonesregcancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/barrabajaencuesta"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/registrartarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="RegistroTarjeta"
+            android:src="@drawable/botonregistrartarjeta" />
+
+        <ImageButton
+            android:id="@+id/cancelarregistro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="Cancelar"
+            android:src="@drawable/botoncancelartarjeta" />
+        
+        <ImageButton
+            android:id="@+id/escanertarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="EscanearTarjeta"
+            android:src="@drawable/botonescaneartarjeta" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layouticonostarjetas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutpartearribaencuesta"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" >
+
+        <ImageView
+            android:id="@+id/iconotarjeta1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="EscogioTarjeta"
+            android:src="@drawable/iconoamerican" />
+
+        <ImageView
+            android:id="@+id/iconotarjeta2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="EscogioTarjeta"
+            android:src="@drawable/iconodiners" />
+
+        <ImageView
+            android:id="@+id/iconotarjeta3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="EscogioTarjeta"
+            android:src="@drawable/iconomaster" />
+
+        <ImageView
+            android:id="@+id/iconotarjeta4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="EscogioTarjeta"
+            android:src="@drawable/iconovisa" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutselectortarjetas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/layouticonostarjetas"
+        android:layout_below="@+id/layouticonostarjetas"
+        android:layout_marginTop="2dp"
+        >
+
+        <RadioButton
+            android:id="@+id/radioButtonAmerican"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioTarjeta" 
+            android:textSize="1dp"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonDiners"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioTarjeta" 
+            android:textSize="1dp"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonMaster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioTarjeta" 
+            android:textSize="1dp"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonVisa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:background="@drawable/fondoselectorfalse"
+            android:button="@null"
+            android:onClick="EscogioTarjeta" 
+            android:textSize="1dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutselectortarjetas"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textofechavencimiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/avisofechavencimiento"
+            android:textSize="1dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+             android:layout_marginTop="8dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/mesvenc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/fondomesano"
+                android:hint="@string/lbl_monthformat"
+                android:inputType="number"
+                android:maxLength="2"
+                android:numeric="integer"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/yearvenc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/fondomesano"
+                android:hint="@string/lbl_yearformat"
+                android:inputType="number"
+                android:maxLength="2"
+                android:numeric="integer"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textocodigoseguridad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/avisocodigoseguridad"
+            android:textSize="1dp" />
+
+        <EditText
+            android:id="@+id/numerocvv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/fondomesano"
+            android:hint="123"
+            android:inputType="number"
+            android:maxLength="4"
+            android:numeric="integer"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

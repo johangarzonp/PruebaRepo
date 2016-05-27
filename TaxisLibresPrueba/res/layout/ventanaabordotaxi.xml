@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondosalirapp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/iconoabordo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iconoconfirmarabordo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/primeralinea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="USTED ESTA ABORDO DEL"
+                android:textSize="15dp"
+                 />
+
+            <TextView
+                android:id="@+id/segundalinea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="TAXI DE PLACAS ABC123"
+                android:textSize="15dp"
+                 />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:id="@+id/botonestaabordo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="SiAbordo"
+            android:src="@drawable/botonsiestoy" />
+        
+        <ImageButton
+            android:id="@+id/botonnoestaabordo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="NoAbordo"
+            android:src="@drawable/botonnoestoy" />
+
+    </LinearLayout>
+
+</LinearLayout>

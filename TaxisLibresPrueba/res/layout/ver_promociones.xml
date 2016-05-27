@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/franjasuperiorpromo" >
+
+        <ImageButton
+            android:id="@+id/cerrarpromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="290dp"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:onClick="SalirPromo"
+            android:src="@drawable/cerrarhistorico" />
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webpromos"
+        android:layout_width="match_parent"
+        android:layout_height="203dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/franjainferiorpromo" >
+
+        <LinearLayout
+            android:id="@+id/fondochulito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center"
+            android:onClick="NoPromo"
+            android:background="@drawable/cuadrocheckpromo" >
+
+            <ImageButton
+                android:id="@+id/checkpromo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="NoPromo"
+                android:visibility="invisible"
+                android:src="@drawable/chulitopromo" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/nomostrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="NoPromo"
+            android:src="@drawable/avisonovolveramostrar" />
+    </LinearLayout>
+
+</LinearLayout>

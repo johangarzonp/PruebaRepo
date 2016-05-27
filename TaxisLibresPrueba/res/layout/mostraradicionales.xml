@@ -1,0 +1,142 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/layoutmostraradicionales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fondoadicionales"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/cerraradicionales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="205dp"
+            android:layout_marginTop="6dp"
+            android:background="@null"
+            android:onClick="CerrarAdicionales"
+            android:src="@drawable/botonsaliradicionales" />
+
+        <LinearLayout
+            android:id="@+id/titulomasopciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:id="@+id/tituloopciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textomasopciones" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/opciones1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageButton
+                android:id="@+id/opcionaeropuerto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="SeleccionoAeropuerto"
+                android:src="@drawable/servicioaeropuerto" />
+            
+            <ImageButton
+                android:id="@+id/opcionfueraciudad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="SeleccionoFueraCiudad"
+                android:src="@drawable/fueradelaciudad" />
+            
+            <ImageButton
+                android:id="@+id/opcioncarrogrande"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="SeleccionoCarroGrande"
+                android:src="@drawable/carrogrande" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/opciones2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageButton
+                android:id="@+id/opcionmascota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="SeleccionoMascota"
+                android:src="@drawable/mascota" />
+            
+            <ImageButton
+                android:id="@+id/opcionhoras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="SeleccionoPorHoras"
+                android:src="@drawable/servicioporhoras" />
+            
+            <ImageButton
+                android:id="@+id/opcionaire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="SeleccionoAire"
+                android:src="@drawable/aireacondicionado" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/layoutconfirmar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageButton
+                android:id="@+id/botonconfirmaadicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="ConfirmarAdicionales"
+                android:src="@drawable/botonconfirmar" />
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

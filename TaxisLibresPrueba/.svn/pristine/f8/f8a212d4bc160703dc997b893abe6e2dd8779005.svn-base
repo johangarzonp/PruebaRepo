@@ -1,0 +1,935 @@
+package com.cotech.taxislibres.services;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.channels.ClosedChannelException;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.SocketChannel;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.apache.http.conn.util.InetAddressUtils;
+
+import com.cotech.taxislibres.C;
+import com.cotech.taxislibres.EstadosUnidad;
+import com.cotech.taxislibres.R;
+import com.cotech.taxislibres.TaxisLi;
+import com.cotech.taxislibres.activities.AConfirmaPago;
+import com.cotech.taxislibres.activities.AFormulario;
+import com.cotech.taxislibres.activities.AMapaUpVersion;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.DialogInterface.OnClickListener;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.StrictMode;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+@SuppressLint({ "NewApi", "ShowToast" })
+public class ServiceTCP extends Service{
+	
+	
+	private String TAG = "TaxisLiSCominication";
+	protected String module = C.COM;
+	public SocketChannel _socket;
+	Handler handlerTimer = new Handler();
+	private int port;
+	private String host;
+	private TaxisLi appState;
+	private Context context;
+	private boolean reinicio = false;
+	private IntentFilter filter;
+	ByteBuffer buf2;
+	
+	 //DownloadFilesTask task;
+	 private boolean isconect=false;
+	 private String IP;
+	
+	
+	 private String Barrio; 
+	 private int contador; 
+	 private String mensajeTaxista="taxislibres";
+	 private String msgEntrante;
+	 
+	 private AlertDialog alert1;
+	
+	 
+	public final BroadcastReceiver receiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Integer cmd = intent.getIntExtra("CMD", 0);
+			switch(cmd){
+				case(C.SEND):	
+					final String data = intent.getStringExtra("DATA");
+					try {
+						//Selector4Write(data);
+						Thread thrd = new Thread(){
+							public void run(){
+								NuevoEnvio(data);
+							}
+						};
+						thrd.start();
+					} catch (Exception e) {
+						//task =new DownloadFilesTask();
+                        //task.execute();
+						Log.i(TAG, module +"EL ERROR OCURRE EN C.SEND :", e);
+						e.printStackTrace();
+					}
+					
+					break;
+				case(C.DISCONECT):
+					
+				try {
+					Log.i(TAG, "SE DESCONECTA EL SOCKET++++++++++++++++++++++++++++++++++++++++");
+					
+					_socket.close();
+					isconect=false;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+					
+					break;
+			}
+
+			
+		}
+	};
+	
+	
+	public void NuevoEnvio(String message){
+		port = 11011;		//Produccion
+		//port = 11014;		//Desarrollo
+		//port = 11013;		//Aero
+		host = "200.91.204.38";
+		try{
+			Socket sck = new Socket(host, port);
+			Log.i(TAG, module+" Abriendo Socket..."  );
+			sck.setSoTimeout(30000);
+			IP = getLocalIpAddress();
+			Log.i(TAG, module+": LA IP DE LA UNIDAD ES: ++++++++ " + IP + " +++++++++++");
+			BufferedWriter bufferSalida = new BufferedWriter(new OutputStreamWriter(sck.getOutputStream(), "LATIN1"));
+			boolean esimagen=false;
+			if(message.contains("I|"))	esimagen=true;
+			bufferSalida.write(message);
+			bufferSalida.flush();
+			Log.i(TAG, module+"ENVIANDO TRAMA:"+message);
+			if(esimagen){
+				esimagen=false;
+				
+				try {
+
+					byte[] bytes = new byte[65536];
+					InputStream entrada = sck.getInputStream();
+					int a = entrada.read(bytes);
+					Log.i(TAG, module+"-----------Numero de Bytes-----: "+ a);
+					Log.i(TAG, module+"**********IMPRIME IMAGEN********"); 
+		            for(int cont=0;cont<a;cont++){
+		            	Log.i(TAG, module+":"+cont+":"+bytes[cont]);
+		            }
+					sck.close();
+					Log.i(TAG, module+" Cerrando Socket..."  );
+					//Bitmap bmp=BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+					Intent recimage = new Intent();
+					recimage.putExtra("CMD", C.RECIBIOIMAGEN);
+					recimage.putExtra("EXTRA", bytes);
+					recimage.setAction(C.MAP);
+					context.sendBroadcast(recimage);
+					Log.i(TAG, module+"**********LEYO IMAGEN********");
+										
+				} catch (IOException ex) {
+//		            Logger.getLogger(JavaApplication1.class.getName()).log(Level.SEVERE, null, ex);
+		        }
+				
+			}else{
+			BufferedReader bufferEntrada = new BufferedReader(new InputStreamReader(sck.getInputStream()));
+			msgEntrante = bufferEntrada.readLine();
+			Log.i(TAG, module + ": SE RECIBE :  "+ msgEntrante);
+			bufferSalida.close();
+			sck.close();
+			Log.i(TAG, module+" Cerrando Socket..."  );
+			ProcessDatosRx(msgEntrante);
+			}
+		}catch (SocketTimeoutException so){
+			Log.i(TAG, module + appState.getEstadoUnidad()+": SE RECIBE :Tiempo expirado para recibir respuesta...", so);
+			if(appState.getEstadoUnidad().equals(EstadosUnidad.ESPERA)){ //Indica que es una Funcion B
+				appState.setFlagrecordardireccion(1);
+				appState.setFlagsolicitud(1);
+				/*******Se cierra el ProcessDialog***************/
+				Intent closedialog = new Intent();
+				closedialog.putExtra("CMD", C.CANCEL_PROCESSDIALOG);
+				closedialog.setAction(C.MAP);
+				context.sendBroadcast(closedialog);
+				appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+
+				Intent k = new Intent();
+				k.putExtra("CMD", C.HABLAR);
+				k.putExtra("TEXTHABLA", "LOSENTIMOS NOHAY COMUNICACION CONEL SERVIDOR PORFAVOR INTENTE DENUEVO");	
+				k.setAction(C.TEXT_TO_SPEECH);
+				context.sendBroadcast(k);
+
+				appState.setIdServicio("0");
+
+				SendToast("LO SENTIMOS NO HAY COMUNICACION CON EL SERVIDOR!!!" +"\n POR FAVOR INTENTE DE NUEVO");
+				
+			}
+			
+	      } catch (UnknownHostException ex) {
+	    	  Log.i(TAG, module + ": SE RECIBE : Enviar socket UnknownHostException", ex);
+	      } catch (ConnectException ce){
+	    	  Log.i(TAG, module + ": SE RECIBE : El socket no responde", ce);
+	    	  //Colocar Aviso de EL SERVIDOR NO RESPONDE....
+	    	  
+	      } catch (IOException ex) {
+	    	  Log.i(TAG, module + ": SE RECIBE : Enviar socket IOException", ex);
+	      } catch (Exception ex) {
+	    	  Log.i(TAG, module + ": SE RECIBE : Enviar socket Exception", ex);
+	      }
+	}
+	
+	
+	///**************************************************************************************
+	//***************************************************************************************
+	
+//	private class DownloadFilesTask extends AsyncTask<Object, Object, Object> {
+//		 
+//		@Override
+//		protected Object doInBackground(Object... params) {
+//			Connect();
+//			return null;
+//		}
+//    }
+	
+	
+	
+	
+	
+	public void Connect(){
+    	  try {  	 
+			 ConnectarServer();
+			 Selector4Read();
+  
+			} catch (SocketException e) {
+				e.printStackTrace();
+				Log.e("Error","Se desconecto, iniciando protocolo de reconexi��n...");
+				isconect=false;
+				handlerTimer.postDelayed(new Runnable(){
+                    public void run() {
+                      // do something 
+                    	Log.i(TAG,"Reconectando, un momento por favor...");
+                    	//task =new DownloadFilesTask();
+                        //task.execute();
+                  }}, 5000);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+          
+    }
+	
+	
+	public void Selector4Read() throws IOException{
+
+		Selector selector = Selector.open();
+
+
+		SelectionKey key2 = _socket.register(selector, SelectionKey.OP_READ);
+
+		while(isconect) {
+				
+		  int readyChannels = selector.select();
+		  
+		  if(readyChannels == 0) continue;
+		  
+
+		  Set<SelectionKey> selectedKeys = selector.selectedKeys();
+
+		  Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+		  while(keyIterator.hasNext()) {
+			  
+		    SelectionKey key = keyIterator.next();
+
+		    if (key.isReadable()) {
+		        // a channel is ready for reading
+		    	Read();
+		    	
+		    } 
+		    else if(!key.isConnectable())
+		    {
+		    	break;
+		    	
+		    }
+		    keyIterator.remove();
+		  }
+		  
+		  
+		}
+
+	}
+	
+	public void Selector4Write(String message) throws IOException{
+
+		Selector selector = Selector.open();
+
+		try{
+		SelectionKey key2 = _socket.register(selector, SelectionKey.OP_WRITE);
+
+		
+		  int readyChannels = selector.select();
+		    
+
+		  Set<SelectionKey> selectedKeys = selector.selectedKeys();
+
+		  Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+		  while(keyIterator.hasNext()) {
+			 
+		    SelectionKey key = keyIterator.next();
+
+		   if (key.isWritable()) {
+		        // a channel is ready for writing
+		    	
+		    	Write(message);
+		    	key2.cancel();
+		    	key2 = null;
+		    	selector.selectNow();
+		    	
+		    }
+		    break;
+		    
+		  }
+		  
+		}catch (ClosedChannelException e){
+			e.printStackTrace();
+			Log.e("Error","Se desconecto, iniciando protocolo de reconexi��n...");
+			isconect=false;
+			handlerTimer.postDelayed(new Runnable(){
+                public void run() {
+                  // do something 
+                	Log.i(TAG,"Reconectando, un momento por favor...");
+                	//task =new DownloadFilesTask();
+                    //task.execute();
+              }}, 5000);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public String Read() throws IOException {
+		ByteBuffer buf = ByteBuffer.allocateDirect(200);
+		int bytesRead = _socket.read(buf); //read into buffer.
+		buf.flip();
+		byte[] data = new byte[buf.remaining()];
+		buf.get(data, 0, data.length);
+		String dataString = new String(data).trim();
+		Log.i("Read",dataString);
+		buf.clear();
+		
+		appState.setFlagconexion(0);
+		String msg = module+": "+dataString.length()+" BYTES READ FROM CHANNEL. '"+dataString+"'";            
+		//ACA SE MIRA LO QUE LLEGA++++++++++++++++++++++++++++++++++++++++++++
+		try{
+			ProcessDatosRx(dataString);	
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		return "";
+	}
+	
+	
+	public void Write(String message){
+		
+		try {
+
+    
+			if(_socket.isConnected())
+			{
+				Log.i("Writing",message);
+				appState.setFlagconexion(1);
+				buf2 = ByteBuffer.allocate(message.getBytes().length);
+				buf2.clear();
+				buf2.put(message.getBytes());
+				buf2.flip();
+				_socket.write(buf2);
+
+			}
+
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.e("Error","Se desconecto, iniciando protocolo de reconexi��n...");
+			isconect=false;
+			handlerTimer.postDelayed(new Runnable(){
+                public void run() {
+                  // do something 
+                	Log.i(TAG,"Reconectando, un momento por favor...");
+                	//task =new DownloadFilesTask();
+                    //task.execute();
+              }}, 5000);
+		}
+	}
+	
+	
+	private void ConnectarServer() throws SocketException {
+		//port = 11011;		//Produccion
+		port = 11014;		//Desarrollo
+		host = "200.91.204.38";
+		Log.i(TAG, module+": OPEN CHANNEL");
+		
+		SocketAddress address = new InetSocketAddress(host,port);
+		try {
+			_socket = SocketChannel.open();
+			_socket.socket().connect(address);
+			_socket.configureBlocking(false);
+			_socket.socket().setSoTimeout(30000); //Para dejar Timeout del Socket...
+			Log.i(TAG, module+": CONNECTED !!!");
+			isconect=true;
+			IP = getLocalIpAddress();
+			Log.i(TAG, module+": LA IP DE LA UNIDAD ES: ++++++++ " + IP + " +++++++++++"  );
+			
+			
+			//Selector4Write("A|3182696480|4.62682455605|-74.1078762074" +"\n");
+			
+			
+		} catch (IOException e) {
+			Log.i(TAG, module +"EL ERROR OCURRE AL CONECTARSE... Y ES :", e);
+			throw new SocketException();
+		}
+
+
+	}
+	
+	
+
+	public String getLocalIpAddress() {
+    	try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface
+                    .getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf
+                        .getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    
+
+          String ipv4;
+		
+          if (!inetAddress.isLoopbackAddress() && InetAddressUtils.isIPv4Address(ipv4 = inetAddress.getHostAddress())) {
+
+                        String ip = inetAddress.getHostAddress().toString();                
+                        IP = ip;
+                        return ipv4;
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("IP Address", ex.toString());
+        }
+        return null;
+    
+    }
+	
+	
+	
+	
+	/**************************** Process Datos Recibidos  *****************************************/
+	
+	public String ProcessDatosRx (String data){
+		
+		String[] partes = data.split("\\|");	
+		/***********************ZONIFICAR**********************************/
+		Log.i(TAG, module+"Llego el Codigo: "+ partes[0]);
+		if(partes[0].equals("{A")){
+			
+			appState.setCodciudad(partes[1]);
+			//appState.setDireccionServicio(partes[2]);
+			appState.setBarrio(partes[3]);			
+			appState.setCodzona( partes[4]);
+//			appState.setServiciosave(partes[5]);
+//			
+//			if(appState.getServiciosave().equals("0")){
+//				Log.i(TAG, module + "+++++++++++++++ NO HAY SERVICIO GUARDADO +++++++++++++++++");
+//			}else{
+//				Log.i(TAG, module + "+++++++++++++++ HAY UN SERVICIO CON ID: +++++++++++++++++" + appState.getServiciosave());
+//				appState.setEstadoUnidad(EstadosUnidad.TAXI_ASIGNADO);
+//			}
+			 
+			try{
+				if(appState.getBarrio().equals(Barrio)){
+										
+				//	Log.i(APPNAME, module+": Barrios Iguales");
+				}else{
+					if(!appState.getBarrio().equals(null)){		
+						if(appState.getBarrio().equals("")) {
+//							Intent k = new Intent();
+//							k.putExtra("CMD", C.HABLAR);
+//							k.putExtra("TEXTHABLA", "Sininformacion deBarrio:  ");
+//							k.setAction(C.TEXT_TO_SPEECH);
+//							context.sendBroadcast(k);
+						}else{
+							
+							if((appState.getBarrio().equals("COMUNEROS")||(appState.getBarrio().equals(null)))){
+								appState.setCodciudad("11001");
+							}else{
+//								Intent k = new Intent();
+//								k.putExtra("CMD", C.HABLAR);
+//								k.putExtra("TEXTHABLA", "USTED SEENCUENTRA ENEL BARRIO: "  + appState.getBarrio());	
+//								k.setAction(C.TEXT_TO_SPEECH);
+//								context.sendBroadcast(k);
+//								Log.i(TAG, "**********************************" +  appState.getBarrio());
+							}
+						}
+					}
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+				Log.i(TAG, module+ e.getMessage());
+			}
+			Barrio= appState.getBarrio();
+		}
+		
+		/**********************SOLICITUD DE SERVICIO****************************/
+		if(partes[0].equals("{B")){			
+			contador=0;								
+			appState.setIdServicio(partes[1]);										
+			appState.setEstadoUnidad(EstadosUnidad.SOLICITUD_TAXI);
+			appState.setFlagCerrarMapa(1);
+		}
+		
+		/**********************PREGUNTAR POR SERVICIO****************************/
+		if(partes[0].equals("{C")){
+			
+			int estado = Integer.parseInt(partes[1]);
+			switch (estado){
+				case 0:
+					break;
+				case 1:
+					appState.setFlagrecordardireccion(0);
+					
+					appState.setPlaca(partes[2]);
+					appState.setPinMovil(partes[3]);
+					appState.setNombreTaxista(partes[4]);
+					appState.setLatitudMovil(partes[5]);
+					appState.setLongitudMovil(partes[6]);
+					
+					if(partes.length>7){
+						appState.setMsgTaxista(partes[7]);
+						
+						
+
+						
+							if(mensajeTaxista.equals(appState.getMsgTaxista())){
+								
+							}else{
+								
+								if(appState.getMsgTaxista().equals("FFTTEE0")){
+									
+									/*************Movil Alfrente**********************/
+									Intent sonido = new Intent();
+									sonido.putExtra("CMD", C.SONIDOALFRENTE);
+									sonido.setAction(C.MAP);
+									context.sendBroadcast(sonido);
+									
+									
+								}
+								
+								else{
+								
+								/*******Se Recibe Mensaje del Taxista***************/
+								Intent msgt = new Intent();
+								msgt.putExtra("CMD", C.MSGTAXISTA);
+								msgt.setAction(C.MAP);
+								context.sendBroadcast(msgt);
+								
+								Intent k = new Intent();
+								k.putExtra("CMD", C.HABLAR);
+								k.putExtra("TEXTHABLA", "NUEVO MENSAJE DELTAXISTA: ");	
+								k.setAction(C.TEXT_TO_SPEECH);
+								context.sendBroadcast(k);
+								
+							}
+						}
+						
+						mensajeTaxista = appState.getMsgTaxista();
+					}
+
+					ConsultarMovil();
+					break;
+				case 2:		
+					SinMovil();
+					break;	
+			}
+			
+			
+	
+		}
+		
+		if(partes[0].equals("{D")){
+			
+			if(partes[1].equals("N-ACK")){
+				Log.i(TAG, module+ "ENTRO A N-ACK");
+				try{
+				if(partes[2].equals("5")){	//Celular
+					Log.i(TAG, module+ "ERROR 5");
+					CloseDialogMap();
+					LeerError("ERROR NUMERODE CELULAR INVALIDO,PORFAVOR VERIFIQUELO");
+					//Toast.makeText(getApplicationContext(), "ERROR NUMERO DE CELULAR INVALIDO", 5000).show();
+					SendToast("ERROR NUMERO DE CELULAR INVALIDO");
+					appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+				}else if(partes[2].equals("6")){	//Ciudad o Pais...
+					Log.i(TAG, module+ "ERROR 6");
+					CloseDialogMap();
+					LeerError("ERROR ENEL MOMENTONO CONTAMOS CONESTE SERVICIO ENESTA CIUDAD");
+					//Toast.makeText(getApplicationContext(), "ERROR EN EL MOMENTO NO CONTAMOS CON ESTE SERVICIO EN ESTA CIUDAD", 5000).show();
+					SendToast("ERROR EN EL MOMENTO NO CONTAMOS CON ESTE SERVICIO EN ESTA CIUDAD");
+					appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+					
+				}else if(partes[2].equals("1")){
+					Log.i(TAG, module+ "ERROR 1");
+					CloseDialogMap();
+					LeerError("ERROR DATOSGPS INVALIDOS NOES POSIBLE CREAREL SERVICIO");
+					//Toast.makeText(getApplicationContext(), "ERROR DATOS GPS INVALIDOS NO ES POSIBLE CREAR EL SERVICIO", 8000).show();
+					SendToast("ERROR DATOS GPS INVALIDOS NO ES POSIBLE CREAR EL SERVICIO");
+					appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+					
+				}else {
+					Log.i(TAG, module+ "ERROR SIN DEFINIR");
+					CloseDialogMap();
+					LeerError("ERROR SINDEFINIR");
+					//Toast.makeText(getApplicationContext(), "ERROR SIN DEFINIR", 5000).show();
+					SendToast("ERROR SIN DEFINIR");
+					appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+					
+				}
+				
+				}catch(Exception e){
+					Log.i(TAG, module+ "ERROR SIN DEFINIR",e);
+					CloseDialogMap();
+					//LeerError("ERROR SINDEFINIR");
+					//Toast.makeText(getApplicationContext(), "ERROR SIN DEFINIR", 5000).show();
+					//appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+				}			
+	
+				
+			}
+				
+				
+			
+		}
+		/****************PARA SABER SI HAY QUE PAGAR YA *************************************/
+		if(partes[0].equals("{J")){
+			int estado = Integer.parseInt(partes[1]);
+			
+			
+			if(estado==0){
+				
+			}else{
+				
+				if(!appState.getEstadoUnidad().equals(EstadosUnidad.LIBRE)){
+				
+					appState.setFlagConfPago(7);
+					appState.setIdModiPayConductor(partes[1]);
+					appState.setValorPagar(partes[2]);
+					
+					
+					
+					Log.i(TAG, module + "***** Entra a el pago Parce*******************************************");
+					
+				}
+			    
+			    
+			}
+			
+			
+			
+			
+		}
+		/*************************************************************************************/
+		if(partes[0].equals("{S-ACK")){
+			
+			
+			if(!appState.getEstadoUnidad().equals(EstadosUnidad.TAXI_ASIGNADO)){
+				appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+				Log.i(TAG, module+": EN LA dssssssss: "  +  appState.getEstadoUnidad());
+
+				/*******Se Coloca invisible los botones***************/
+				appState.setFlaginvisible(1);
+				Intent invisible = new Intent();
+				invisible.putExtra("CMD", C.INVISIBLEBOTON);
+				invisible.setAction(C.MAP);
+				context.sendBroadcast(invisible);
+				
+				
+			}
+				
+//				Intent toast = new Intent();
+//				toast.setAction(C.MAP);
+//				toast.putExtra("CMD", C.TOAST);
+//				toast.putExtra("TOAST", "PETICION RECIBIDA ");
+//				context.sendBroadcast(toast);
+				SendToast("PETICION RECIBIDA ");
+			
+			
+			
+		}
+					
+		return "";
+	
+	}
+	
+	public void CloseDialogMap(){
+		/*******Se cierra el ProcessDialog***************/
+		Intent closedialog = new Intent();
+		closedialog.putExtra("CMD", C.CANCEL_PROCESSDIALOG);
+		closedialog.setAction(C.MAP);
+		context.sendBroadcast(closedialog);
+
+	}
+	
+	public void LeerError(String error){
+		Intent senderror = new Intent();
+		senderror.putExtra("CMD", C.HABLAR);
+		senderror.putExtra("TEXTHABLA", error);	
+		senderror.setAction(C.TEXT_TO_SPEECH);
+		context.sendBroadcast(senderror);
+	}
+	
+	public void SendToast(String mensaje){
+		Intent toast = new Intent();
+		toast.setAction(C.MAP);
+		toast.putExtra("CMD", C.TOAST);
+		toast.putExtra("TOAST",mensaje );
+		context.sendBroadcast(toast);
+	}
+	
+	public void ConsultarMovil(){
+		if(!appState.getEstadoUnidad().equals(EstadosUnidad.CANCELADO)){
+			contador++;
+						
+			/*******Se Coloca invisible los botones***************/
+			appState.setFlaginvisible(2);
+			Intent invisible = new Intent();
+			invisible.putExtra("CMD", C.INVISIBLEBOTON);
+			invisible.setAction(C.MAP);
+			context.sendBroadcast(invisible);
+			
+			
+			appState.setFlagsolicitud(1);
+			/*******Se cierra el ProcessDialog***************/
+			Intent closedialog = new Intent();
+			closedialog.putExtra("CMD", C.CANCEL_PROCESSDIALOG);
+			closedialog.setAction(C.MAP);
+			context.sendBroadcast(closedialog);
+
+						
+			appState.setContador(0);
+			
+			
+			
+			
+			if(appState.getFlagcancelado()==1){
+				
+			}else{
+				
+				appState.setEstadoUnidad(EstadosUnidad.TAXI_ASIGNADO);
+				appState.setFlagcancelado(0);
+			}
+			if(contador<2){																								
+				Log.i(TAG, module+ "eN bREVE.....");
+				
+				Intent k = new Intent();
+				k.putExtra("CMD", C.HABLAR);
+				k.putExtra("TEXTHABLA", "ENBREVE ELTAXI DEPLACAS "  + appState.getPlaca() + "loatendera");	
+				k.setAction(C.TEXT_TO_SPEECH);
+				context.sendBroadcast(k);
+				
+				appState.setEstadoUnidad(EstadosUnidad.TAXI_ASIGNADO);
+										
+				/*******Se Coloca Aviso de  Taxi***************/
+				Intent taxi = new Intent();
+				taxi.putExtra("CMD", C.AVISO_TAXI);
+				taxi.setAction(C.MAP);
+				context.sendBroadcast(taxi);
+				
+//				/*******Se Mira las cordenadas del Taxi***************/
+//				Intent taxiasig = new Intent();
+//				taxiasig.putExtra("CMD", C.TAXIASIGNADO);
+//				taxiasig.setAction(C.MAP);
+//				context.sendBroadcast(taxiasig);
+			
+			}
+			
+		}
+	}
+	
+	public void SinMovil(){
+		if(appState.getEstadoUnidad().equals(EstadosUnidad.SOLICITUD_TAXI)){
+			appState.setFlagrecordardireccion(1);
+			appState.setFlagsolicitud(1);
+			/*******Se cierra el ProcessDialog***************/
+			Intent closedialog = new Intent();
+			closedialog.putExtra("CMD", C.CANCEL_PROCESSDIALOG);
+			closedialog.setAction(C.MAP);
+			context.sendBroadcast(closedialog);
+			appState.setEstadoUnidad(EstadosUnidad.LIBRE);
+							
+			/*******Se Coloca invisible los botones***************/
+			appState.setFlaginvisible(1);
+			Intent invisible = new Intent();
+			invisible.putExtra("CMD", C.INVISIBLEBOTON);
+			invisible.setAction(C.MAP);
+			context.sendBroadcast(invisible);
+			
+			
+			Intent k = new Intent();
+			k.putExtra("CMD", C.HABLAR);
+			k.putExtra("TEXTHABLA", "LOSENTIMOS NOHAY TAXI DISPONIBLE ENEL MOMENTO PORFAVOR INTENTE DENUEVO ");	
+			k.setAction(C.TEXT_TO_SPEECH);
+			context.sendBroadcast(k);
+			
+			appState.setIdServicio("0");
+			
+//			Intent toast = new Intent();
+//			toast.setAction(C.MAP);
+//			toast.putExtra("CMD", C.TOAST);
+//			toast.putExtra("TOAST", "LO SENTIMOS NO HAY TAXI DISPONIBLE EN EL MOMENTO!!!" +"\n POR FAVOR INTENTE DE NUEVO");
+//			context.sendBroadcast(toast);
+			
+			SendToast("LO SENTIMOS NO HAY TAXI DISPONIBLE EN EL MOMENTO!!!" +"\n POR FAVOR INTENTE DE NUEVO");
+		
+		}
+		
+		else if(appState.getEstadoUnidad().equals(EstadosUnidad.TAXI_ASIGNADO)){
+			appState.setFlagAnunciotaxi(0);
+	       	appState.setEstadoUnidad(EstadosUnidad.ENCUESTA);	
+//	       	Intent toast = new Intent();
+//			toast.setAction(C.MAP);
+//			toast.putExtra("CMD", C.TOAST);
+//			toast.putExtra("TOAST", "USUARIO A BORDO DEL TAXI ");
+//			context.sendBroadcast(toast);
+			
+			SendToast("USUARIO A BORDO DEL TAXI ");
+								
+			/*******Se Coloca invisible los botones***************/
+			appState.setFlagCerrarMapa(2);
+			
+			appState.setFlaginvisible(1);
+			Intent invisible = new Intent();
+			invisible.putExtra("CMD", C.INVISIBLEBOTON);
+			invisible.setAction(C.MAP);
+			context.sendBroadcast(invisible);	
+		
+			appState.setFlagAnunciotaxi(0);
+		    //appState.setEstadoUnidad(EstadosUnidad.ENCUESTA);
+		    appState.setFlagcancelado(1);
+//	        Intent califi = new Intent();
+//	        califi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 					       
+//	        califi.setClass(context, AFormulario.class);
+//	        context.startActivity(califi);	
+	        
+	        
+	        
+		}
+	}
+	
+	/**************************METODOS CON OVERRIDE****************************/
+	@Override
+	public IBinder onBind(Intent intent) {
+		
+		return null;
+	}
+
+	
+	@Override
+	public void onCreate()
+	{
+	    Log.i(TAG, "onCreate");
+	    
+	    context = getApplicationContext();
+		appState = (TaxisLi)context;
+	    
+		filter = new IntentFilter();
+		filter.addAction(module);
+		try{
+			registerReceiver(receiver, filter);
+		}catch (Exception e){
+			Log.i(TAG, module +"EL ERROR OCURRE AL registerReceiver :", e);
+			e.printStackTrace();
+		}		
+		
+		
+		if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.FROYO) {
+		     Log.i(TAG, module + "VVVVVVVVVVVVVVVVVVVVVVVVV ES MENOSR A 2.2");
+		}else{
+			 Log.i(TAG, module + "VVVVVVVVVVVVVVVVVVVVVVVVV ES MAYOR A 2.2");
+		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	        StrictMode.setThreadPolicy(policy);   
+		}
+		
+		
+      
+        //task =new DownloadFilesTask();
+        //task.execute();
+	}
+	
+	
+	
+	
+	@Override
+	public void onDestroy(){
+	    Log.i(TAG, "onDestroy");
+	    super.onDestroy();
+	    unregisterReceiver(receiver);
+	    isconect=false;
+	    //task.cancel(true);
+	   
+	} 
+	
+	
+}

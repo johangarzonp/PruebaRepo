@@ -1,0 +1,154 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+	<LinearLayout
+        android:id="@+id/layoutRegisterPagoVale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:orientation="vertical" >
+        
+	    <TextView
+            android:id="@+id/titulotextopagos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGISTRAR PAGO CON VALE"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:textColor="#000" />
+	    
+	    <RelativeLayout
+	        android:id="@+id/basic_info_driver"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:paddingLeft="15dp" >
+
+	        <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+
+	            <TextView
+	                android:id="@+id/textView2"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="NOMBRE"
+	                android:textColor="#000000"
+	                android:textStyle="bold" />
+
+	            <TextView
+	            	android:id="@+id/nombretaxista"
+	            	android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="Taxis Libres"
+	            	android:textAppearance="?android:attr/textAppearanceMedium"
+	            	android:textColor="#000" />
+
+	                <requestFocus />
+
+
+	            <TextView
+	                android:id="@+id/textView3"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="PLACA"
+	                android:textColor="#000000"
+	                android:textStyle="bold" />
+
+	            <TextView
+	            	android:id="@+id/placataxi"
+	           		android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="@string/sample_vehicle"
+	            	android:textAppearance="?android:attr/textAppearanceMedium"
+	            	android:textColor="#000" />
+	            
+	            <TextView
+	                android:id="@+id/textView4"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="VALOR A PAGAR"
+	                android:textColor="#000000"
+	                android:textStyle="bold" />
+
+	            <TextView
+	            	android:id="@+id/valorpagar"
+	           		android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="$0"
+	            	android:textAppearance="?android:attr/textAppearanceMedium"
+	            	android:textColor="#000" />
+	            
+	            <TextView
+	                android:id="@+id/textView5"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="CLAVE"
+	                android:textColor="#000000"
+	                android:textStyle="bold" />
+
+	            <TextView
+	            	android:id="@+id/claveservicio"
+	           		android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="@string/sample_key"
+	            	android:textAppearance="?android:attr/textAppearanceMedium"
+	            	android:textColor="#000" />
+
+	        </LinearLayout>
+	    </RelativeLayout>
+	    	    
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginTop="5dp"
+	        android:layout_gravity="center"
+	        >
+	        <TextView
+	            	android:id="@+id/avisocontrasenacvv"
+	            	android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="Ingrese contraseña para el pago"
+	            	android:textStyle="bold"
+	            	android:textColor="#000" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginTop="3dp"
+	        android:layout_gravity="center"
+	        >
+	        <EditText
+	            android:id="@+id/contrasenapago"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="textCapWords"
+	            android:ems="10"
+	            android:hint="@string/lbl_payment_password" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginTop="5dp"
+	        android:layout_gravity="center"
+	        >
+	        <Button
+	        	android:id="@+id/Button_confirmPayment"
+	        	style="@style/ButtonText"
+	        	android:layout_width="match_parent"
+	        	android:layout_height="wrap_content"
+	        	android:text="Confirmar Pago" 
+	        	android:textColor="#000"
+	        	android:onClick="ConfirmaPago"/>
+	    </LinearLayout>
+
+	</LinearLayout>
+	    
+</LinearLayout>

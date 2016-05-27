@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/fondoconfirmaservicio"
+    android:orientation="vertical" >
+
+    <ImageButton
+        android:id="@+id/cancelarsolicitud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="6dp"
+        android:background="@null"
+        android:onClick="CancelarSolicitud"
+        android:src="@drawable/botonsaliradicionales" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/avisoconfirmarservicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/textoconfirmasolicitud"
+            android:textSize="1dp" />
+
+        <TextView
+            android:id="@+id/espaciodireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxWidth="210dp"
+            android:text="Direccion"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/avisoformadepago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/textoformadepago"
+            android:textSize="1dp" />
+
+        <TextView
+            android:id="@+id/avisotipodepago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Efectivo"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textopropina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/textopropina"
+            android:textSize="1dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/signomenos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:onClick="Restar"
+                android:src="@drawable/signomenos" />
+
+                        
+            <EditText
+                android:id="@+id/cajapropina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/boxpropina"
+                android:inputType="textCapWords"
+                android:maxLength="10"
+            	android:paddingLeft="8dp"
+            	android:paddingRight="8dp"
+                android:textColor="#777777"
+                android:textSize="18dp"
+                
+                />
+
+            <ImageButton
+                android:id="@+id/signomas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:onClick="Sumar"
+                android:src="@drawable/signomas" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/confirmarservicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="25dp"
+        android:background="@null"
+        android:onClick="ConfirmarSolicitud"
+        android:src="@drawable/botonconfirmar" />
+
+</LinearLayout>

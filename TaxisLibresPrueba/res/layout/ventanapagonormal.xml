@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondoregistropago"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textopagoservicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="PAGO DEL SERVICIO"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/textotipopago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Efectivo"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textograciaspref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Gracias por preferirnos"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textoestamossiempre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="estamos siempre a su servicio"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textocostoservicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="El costo de su servicio fue"
+        android:textSize="15dp" />
+    
+    <TextView
+        android:id="@+id/valorservicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="$3900 pesos"
+        android:textSize="15dp" />
+
+    <ImageButton
+        android:id="@+id/aceptarpago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:onClick="AceptarPago"
+        android:src="@drawable/botonaceptar" />
+
+</LinearLayout>

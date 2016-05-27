@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondosalirapp"
+    android:orientation="vertical" >
+    
+    <ImageButton
+            android:id="@+id/cerraralfrente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="200dp"
+            android:background="@null"
+            android:onClick="ConfirmarAlfrente"
+            android:src="@drawable/botonsaliradicionales" />
+
+    <TextView
+        android:id="@+id/textosutaxi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SU TAXI DE PLACAS" 
+        android:layout_marginTop="1dp"
+        android:layout_gravity="center"
+        android:textSize="18dp"/>
+    
+    <TextView
+        android:id="@+id/textoplacasalfrente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABC-123" 
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center"
+        android:textSize="18dp"/>
+    
+    <TextView
+        android:id="@+id/textoseencuentraalfrente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SE ENCUENTRA AL FRENTE" 
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center"
+        android:textSize="18dp"/>
+    
+    <TextView
+        android:id="@+id/textoclavealfrente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clave: 70" 
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center"
+        android:textSize="18dp"/>
+    
+    <ImageButton
+            android:id="@+id/confirmaralfrente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:onClick="ConfirmarAlfrente"
+            android:src="@drawable/botonaceptar" />
+
+</LinearLayout>

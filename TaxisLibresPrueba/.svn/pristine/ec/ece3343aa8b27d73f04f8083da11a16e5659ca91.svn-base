@@ -1,0 +1,84 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/fondo"
+    android:orientation="vertical"
+    tools:context=".AEntrada" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/textnombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="500dp"
+            android:text="NOMBRE DE USUARIO"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textnombre"
+            android:layout_centerHorizontal="true"
+            android:hint="NOMBRE DE USUARIO"
+            android:overScrollMode="always"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+            <requestFocus
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/texttelefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nombre"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:text="NÚMERO DE TELEFONO"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+        
+        <EditText
+            android:id="@+id/telefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/texttelefono"
+            android:layout_centerHorizontal="true"
+            android:hint="TELEFONO MOVIL"
+            android:inputType="number"
+            android:maxLength="10"
+            android:numeric="integer"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+            <requestFocus
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        
+
+        <ImageButton
+            android:id="@+id/entrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/telefono"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:background="@null"
+            android:onClick="Entrar"
+            android:src="@drawable/entrar" />
+
+    </RelativeLayout>
+
+</LinearLayout>

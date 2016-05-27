@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondosalirapp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textosalir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textodeseasolicitarnuevamente" 
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"/>
+    
+    <TextView
+        android:id="@+id/contadortiempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        >
+        <!-- 
+        <ImageButton
+            android:id="@+id/solicitarnuevo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="NuevaSolicitud"
+            android:src="@drawable/botonaceptar" />
+         -->
+        <ImageButton
+            android:id="@+id/cancelarnuevo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="CancelarSolicitud"
+            android:src="@drawable/botoncancelar" />
+    </LinearLayout>
+</LinearLayout>
